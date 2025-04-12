@@ -17,8 +17,9 @@ export const googleOptions = {
 
         if (userData && !error) {
           return {
-            id: userData.id,
-            ...userData
+            ...userData,
+            id: userData.user.id,
+            token: userData.token
           }
         }
 
@@ -41,7 +42,9 @@ export const googleOptions = {
 
           if (loginData && !loginError) {
             return {
-              ...loginData
+              ...loginData,
+              id: loginData.user.id,
+              token: loginData.token
             }
           }
         }

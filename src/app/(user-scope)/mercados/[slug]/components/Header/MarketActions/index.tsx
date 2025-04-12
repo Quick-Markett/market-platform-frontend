@@ -7,7 +7,7 @@ export const MarketActions: React.FC<MarketActionsProps> = ({ market }) => {
     <div className="flex w-full items-center justify-end gap-4 lg:gap-6">
       <Anchor
         className="md:text-base"
-        href={`/mercados/${market.slug}/editar`}
+        href={`/mercados/${market.slug}/admin/editar-informacoes`}
         variant="primary"
       >
         Editar

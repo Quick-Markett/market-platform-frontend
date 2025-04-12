@@ -17,27 +17,26 @@ export const authOptions: AuthOptions = {
     jwt: async data => {
       const { user, token, trigger, session } = data
 
-      let userData: User = token.userData as User
-
-      if (user) userData = user as unknown as User
+      if (user) {
+        token.userData = user
+      }
 
       if (trigger === 'update') {
         if (session) {
-          userData = {
-            ...userData,
+          token.userData = {
+            ...token,
             ...session
           }
         }
       }
 
-      token.userData = userData
       return token
     },
     session: async props => {
-      const { session, token: jwt } = props
+      const { session, token } = props
 
-      const { userData } = jwt
-      session.user = userData as User
+      session.user = token.userData as User
+      session.token = token.token as string
 
       return Promise.resolve(session)
     },

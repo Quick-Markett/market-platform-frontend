@@ -87,12 +87,20 @@ export class Markets {
   }
 
   createMarket = async ({
+    token,
     payload
   }: CreateMarketPayload): Promise<ServiceRequestResponse<Market>> => {
     try {
+      console.log(`baby: ${token}`)
+
       const { data, status } = await this.instance.post(
         `http://localhost:3030/markets`,
-        payload
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 201) {
@@ -112,13 +120,18 @@ export class Markets {
   }
 
   updateMarket = async ({
-    marketId,
+    token,
     payload
   }: UpdateMarketPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.put(
-        `/markets/${marketId.toString()}`,
-        payload
+        `/markets/${payload.id.toString()}`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {
@@ -136,11 +149,17 @@ export class Markets {
   }
 
   deleteMarket = async ({
+    token,
     marketId
   }: DeleteMarketPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.delete(
-        `/markets/${marketId.toString()}`
+        `/markets/${marketId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {

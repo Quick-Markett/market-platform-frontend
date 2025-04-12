@@ -8,7 +8,7 @@ import { Shop } from './icons/Shop'
 import { LoginButton } from './LoginButton'
 
 export const Navbar: React.FC = async () => {
-  const user = await getUserSession()
+  const session = await getUserSession()
 
   return (
     <nav className="sticky inset-0 z-50 max-h-[72px] w-full border-b border-neutral-100 bg-white px-6 py-4 drop-shadow-sm backdrop-blur-sm backdrop-filter lg:px-4 xl:px-0">
@@ -40,7 +40,7 @@ export const Navbar: React.FC = async () => {
               type="text"
             />
           </div>
-          {user ? (
+          {session?.user ? (
             <div className="ml-2 flex items-center gap-4 lg:gap-6">
               <Shop className="h-5 w-5 cursor-pointer text-neutral-700 transition-all duration-300 hover:brightness-125" />
               <Account className="h-5 w-5 cursor-pointer text-neutral-700 transition-all duration-300 hover:brightness-125" />

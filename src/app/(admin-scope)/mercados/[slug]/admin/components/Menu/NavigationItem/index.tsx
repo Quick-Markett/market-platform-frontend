@@ -1,8 +1,7 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-
-import { useAdminContext } from '@/contexts/AdminProvider'
 
 import { DropdownArrow } from '../icons/DropdownArrow'
 import type { NavigationItemProps } from './types'
@@ -13,7 +12,9 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
 }) => {
   const [isQuestionOpen, setIsQuestionOpen] = useState<boolean>(false)
 
-  const { selectedTab, setSelectedTab } = useAdminContext()
+  const pathname = usePathname()
+  const dividedPath = pathname.split('/').filter(Boolean)
+  const currentPath = dividedPath.at(-1)
 
   return (
     <button
@@ -45,14 +46,13 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
           {copy.items.map(({ id, label }, index) => (
             <li
               onClick={() => {
-                setSelectedTab(id)
                 handleToggleSideMenu()
               }}
               className="w-full"
               key={`${label}-${index}`}
             >
               <div
-                className={`flex w-full border-neutral-100 py-2 pl-2 transition-all duration-300 ${selectedTab === id ? 'border border-yellow-500 bg-yellow-50 text-yellow-700' : 'border-b bg-transparent text-neutral-600'}`}
+                className={`flex w-full border-neutral-100 py-2 pl-2 transition-all duration-300 ${currentPath === id ? 'border border-yellow-500 bg-yellow-50 text-yellow-700' : 'border-b bg-transparent text-neutral-600'}`}
               >
                 {label}
               </div>

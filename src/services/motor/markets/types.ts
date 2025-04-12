@@ -23,12 +23,13 @@ export interface CreateMarketPayload {
     | 'owner_id'
     | 'slug'
   >
+  token: string
 }
 
 export interface UpdateMarketPayload {
-  marketId: number
   payload: Pick<
     Market,
+    | 'id'
     | 'address'
     | 'city'
     | 'description'
@@ -39,6 +40,9 @@ export interface UpdateMarketPayload {
     | 'zip_code'
     | 'owner_id'
   >
+  token: string
 }
 
-export interface DeleteMarketPayload extends GetMarketByIdPayload {}
+export interface DeleteMarketPayload extends GetMarketByIdPayload {
+  token: string
+}

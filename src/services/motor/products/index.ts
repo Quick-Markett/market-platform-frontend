@@ -67,10 +67,15 @@ export class Products {
   }
 
   createProduct = async ({
+    token,
     payload
   }: CreateProductPayload): Promise<ServiceRequestResponse<Product>> => {
     try {
-      const { data, status } = await this.instance.post(`/products`, payload)
+      const { data, status } = await this.instance.post(`/products`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
 
       if (status !== 200) {
         throw new Error(data.message)
@@ -89,11 +94,17 @@ export class Products {
   }
 
   updateProduct = async ({
+    token,
     productId
   }: UpdateProductByIdPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.put(
-        `/products/${productId.toString()}`
+        `/products/${productId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {
@@ -111,11 +122,17 @@ export class Products {
   }
 
   deleteProduct = async ({
+    token,
     productId
   }: DeleteProductByIdPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.delete(
-        `/products/${productId.toString()}`
+        `/products/${productId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {

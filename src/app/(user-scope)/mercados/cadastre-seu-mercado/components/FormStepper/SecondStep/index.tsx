@@ -1,5 +1,6 @@
 'use client'
 
+import axios from 'axios'
 import Image from 'next/image'
 import { useState } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
@@ -13,7 +14,6 @@ import { InputField } from '@/components/toolkit/Fields/InputField'
 import { SelectField } from '@/components/toolkit/Fields/SelectField'
 import { PhoneNumber } from '@/components/toolkit/PhoneNumber'
 import { useUserSession } from '@/hooks/useUserSession'
-import { instanceMotor } from '@/instances/instanceMotor'
 import { convertToSlug } from '@/utils/helpers/convertToSlug'
 import { tryCatch } from '@/utils/helpers/tryCatch'
 import { uploadImage } from '@/utils/helpers/uploadImage'
@@ -101,7 +101,8 @@ export const SecondStep: React.FC<SecondStepProps> = ({ setCurrentStep }) => {
     phone_number
   }) => {
     try {
-      await instanceMotor.markets.createMarket({
+      const { status } = await axios.post('/api/markets/create-market', {
+        token: user.token,
         payload: {
           owner_id: user.id,
           description: marketDescription,
@@ -116,6 +117,13 @@ export const SecondStep: React.FC<SecondStepProps> = ({ setCurrentStep }) => {
           slug: convertToSlug({ text: marketName })
         }
       })
+
+      if (status !== 201) {
+        toast.error('Ops.. houve um erro ao criar o mercado!')
+        return
+      }
+
+      toast.success('Seu mercado foi criado com sucesso!')
 
       // TODO: Add new validation to handle with unique emails errors
       // @higor

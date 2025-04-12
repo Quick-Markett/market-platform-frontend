@@ -4,7 +4,7 @@ import type { User } from '@/types/models/user'
 import type { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
 import { generateSsoToken } from '@/utils/auth/generateSsoToken'
 
-import type { CreateUserData, LoginUserData } from './types'
+import type { CreateUserData, LoginUserData, LoginUserResponse } from './types'
 
 export class SsoAuth {
   private instance: AxiosInstance
@@ -51,7 +51,7 @@ export class SsoAuth {
 
   loginUser = async (
     payload: LoginUserData
-  ): Promise<ServiceRequestResponse<User>> => {
+  ): Promise<ServiceRequestResponse<LoginUserResponse>> => {
     try {
       const ssoToken = await generateSsoToken(payload)
 
@@ -69,10 +69,8 @@ export class SsoAuth {
       const { token, ...user } = data
 
       return {
-        data: {
-          ...user,
-          token
-        }
+        ...user,
+        token
       }
     } catch (err) {
       console.error({

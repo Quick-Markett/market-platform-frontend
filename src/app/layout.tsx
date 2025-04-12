@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth'
 
 import { AuthModal } from '@/components/common/AuthModal'
 import { Footer } from '@/components/common/Footer'
+import ToastMessage from '@/components/toolkit/ToastMessage'
 import { APP_FONT } from '@/constants/font'
 import NextAuthProvider from '@/contexts/NextAuthProvider'
 import { authOptions } from '@/libs/auth'
@@ -25,6 +26,7 @@ const RootLayout: NextPage = async ({
     <html lang="pt">
       <body className={`selection:bg-[#ecc79c38] ${APP_FONT.className}`}>
         <NextAuthProvider session={session}>
+          <ToastMessage />
           {children}
           <Footer />
           <AuthModal />

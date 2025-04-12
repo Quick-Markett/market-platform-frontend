@@ -1,5 +1,6 @@
 'use client'
 
+import axios from 'axios'
 import { useState } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
@@ -8,9 +9,8 @@ import { toast } from 'react-toastify'
 import { Button } from '@/components/toolkit/Button'
 import { InputField } from '@/components/toolkit/Fields/InputField'
 import { Modal } from '@/components/toolkit/Modal'
-import { useAdminContext } from '@/contexts/AdminProvider'
 import { useEventListener } from '@/hooks/useEventListener'
-import { instanceMotor } from '@/instances/instanceMotor'
+import { useUserSession } from '@/hooks/useUserSession'
 import { convertToSlug } from '@/utils/helpers/convertToSlug'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -18,8 +18,8 @@ import { createCategorySchema } from './schema'
 import type { CreateCategoryFormData, CreateCategoryFormInputs } from './types'
 
 export const CreateCategoryModal: React.FC = () => {
+  const { token } = useUserSession()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const { marketData } = useAdminContext()
 
   const formMethods = useForm<CreateCategoryFormInputs>({
     resolver: zodResolver(createCategorySchema())
@@ -39,11 +39,11 @@ export const CreateCategoryModal: React.FC = () => {
     try {
       const slug = convertToSlug({ text: name })
 
-      const { error } = await instanceMotor.categories.createCategory({
+      const { status } = await axios.post('/api/categories/create-category', {
+        token,
         payload: {
           description,
           name,
-          market_id: marketData.id,
           slug
         }
       })
@@ -51,7 +51,7 @@ export const CreateCategoryModal: React.FC = () => {
       setValue('description', '')
       setValue('name', '')
 
-      if (error) {
+      if (status !== 201) {
         toast.error('Ops.. houve um erro ao criar a categoria!')
         return
       }

@@ -8,7 +8,7 @@ import { MarketActions } from './MarketActions'
 import type { HeaderProps } from './types'
 
 export const Header: React.FC<HeaderProps> = async ({ market }) => {
-  const user = await getUserSession()
+  const { user } = await getUserSession()
 
   return (
     <Container

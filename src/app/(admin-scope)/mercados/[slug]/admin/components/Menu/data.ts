@@ -5,19 +5,19 @@ export const NAVIGATION_LIST: NavigationItem[] = [
     title: 'Informações do Mercado',
     items: [
       {
-        id: 'edit-info',
+        id: 'editar-informacoes',
         label: 'Editar Informações'
       },
       {
-        id: 'edit-categories',
+        id: 'categorias',
         label: 'Editar categorias'
       },
       {
-        id: 'edit-products',
+        id: 'produtos',
         label: 'Editar Produtos'
       },
       {
-        id: 'see-as-user',
+        id: 'visualizar',
         label: 'Visualizar como usuário'
       }
     ]
@@ -26,15 +26,15 @@ export const NAVIGATION_LIST: NavigationItem[] = [
     title: 'Dashboards & Analytics',
     items: [
       {
-        id: 'customers',
+        id: 'clientes',
         label: 'Clientes'
       },
       {
-        id: 'products',
-        label: 'Produtos'
+        id: 'analytics',
+        label: 'Analytics'
       },
       {
-        id: 'general',
+        id: 'geral',
         label: 'Geral'
       }
     ]
@@ -43,7 +43,7 @@ export const NAVIGATION_LIST: NavigationItem[] = [
     title: 'Outras Informações',
     items: [
       {
-        id: 'terms-of-use',
+        id: 'termos-de-uso',
         label: 'Termos de Uso'
       },
       {

@@ -21,3 +21,8 @@ export interface UpdateUserData {
   googleId: string
   userId: number
 }
+
+export interface LoginUserResponse {
+  token: string
+  user: User
+}

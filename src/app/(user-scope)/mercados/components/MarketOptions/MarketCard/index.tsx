@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import { Anchor } from '@/components/toolkit/Anchor'
 import { formatCurrency } from '@/utils/getters/getFormattedCurrency'
 
@@ -10,7 +12,15 @@ export const MarketCard: React.FC<MarketCardProps> = ({ market }) => {
       href={`/mercados/${market.slug}`}
       variant="custom"
     >
-      <figure className="h-12 w-12 rounded-sm bg-neutral-200 lg:h-20 lg:w-20" />
+      <figure className="h-12 w-12 rounded-sm lg:h-20 lg:w-20">
+        <Image
+          alt={market.name}
+          className="h-12 w-12 rounded-sm object-cover lg:h-20 lg:w-20"
+          height={1080}
+          src={market.logo_url}
+          width={1080}
+        />
+      </figure>
       <article className="w-full flex-1">
         <p className="text-base font-medium">{market.name}</p>
         <p className="mt-2 text-xs lg:text-sm lg:text-neutral-600">
