@@ -12,9 +12,7 @@ export const uploadImage = async ({ imagePath }: uploadImageData) => {
   })
 
   if (request.ok) {
-    const baby = await request.json()
-    console.log(baby)
-    return baby
+    return await request.json()
   }
 
   return null

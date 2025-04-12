@@ -91,8 +91,6 @@ export class Markets {
     payload
   }: CreateMarketPayload): Promise<ServiceRequestResponse<Market>> => {
     try {
-      console.log(`baby: ${token}`)
-
       const { data, status } = await this.instance.post(
         `http://localhost:3030/markets`,
         payload,
