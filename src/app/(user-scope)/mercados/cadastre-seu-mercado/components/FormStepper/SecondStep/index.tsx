@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import { useState } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
-import { useForm, useWatch } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import { UploadButton } from '@/components/common/UploadButton'
@@ -11,12 +12,9 @@ import { Button } from '@/components/toolkit/Button'
 import { InputField } from '@/components/toolkit/Fields/InputField'
 import { SelectField } from '@/components/toolkit/Fields/SelectField'
 import { PhoneNumber } from '@/components/toolkit/PhoneNumber'
-import { BRAZILIAN_CITIES } from '@/constants/common/brazilian-cities'
-import { BRAZILIAN_STATES } from '@/constants/common/brazilian.states'
 import { useUserSession } from '@/hooks/useUserSession'
 import { instanceMotor } from '@/instances/instanceMotor'
 import { convertToSlug } from '@/utils/helpers/convertToSlug'
-import { formatCityName } from '@/utils/helpers/formatCityName'
 import { tryCatch } from '@/utils/helpers/tryCatch'
 import { uploadImage } from '@/utils/helpers/uploadImage'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -34,12 +32,15 @@ export const SecondStep: React.FC<SecondStepProps> = ({ setCurrentStep }) => {
   const [isUploadLoading, setIsUploadLoading] = useState<boolean>(false)
   const [logo, setLogo] = useState<string>('')
   const [addressData, setAddressData] = useState<AddressData | null>(null)
-  const [cities, setCities] = useState<{ label: string; value: string }[]>([])
 
   const { user } = useUserSession()
 
   const formMethods = useForm<RegisterMarketFormInputs>({
-    resolver: zodResolver(registerMarketSchema())
+    resolver: zodResolver(registerMarketSchema()),
+    defaultValues: {
+      state: '',
+      city: ''
+    }
   })
 
   const {
@@ -78,7 +79,7 @@ export const SecondStep: React.FC<SecondStepProps> = ({ setCurrentStep }) => {
 
     const newAddressData = {
       city: requestData.localidade,
-      state: requestData.uf,
+      state: requestData.estado,
       street: `${requestData.bairro}, ${requestData.logradouro}`
     }
 
@@ -123,26 +124,6 @@ export const SecondStep: React.FC<SecondStepProps> = ({ setCurrentStep }) => {
     }
   }
 
-  const selectedUF = useWatch({
-    control,
-    name: 'state'
-  })
-
-  useEffect(() => {
-    const estadoSelecionado = BRAZILIAN_CITIES.estados.find(
-      estado => estado.sigla.toLowerCase() === selectedUF?.toLowerCase()
-    )
-
-    const formattedCities = estadoSelecionado
-      ? estadoSelecionado.cidades.map(city => ({
-          label: city,
-          value: formatCityName(city)
-        }))
-      : []
-
-    setCities(formattedCities)
-  }, [selectedUF])
-
   // TODO: Update Address part, this is not the final version because we need to improve the address database handling
   return !isSubmitSuccessful ? (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-8">
@@ -156,38 +137,72 @@ export const SecondStep: React.FC<SecondStepProps> = ({ setCurrentStep }) => {
       </article>
       <form id="register-market" onSubmit={handleSubmit(onSubmit)}>
         <section className="flex w-full flex-col gap-1">
-          <InputField
-            id="marketName"
-            label="Nome do Mercado"
-            maxLength={80}
-            minLength={8}
-            placeholder="Digite o nome do seu estabelecimento"
-            spellCheck={false}
-            autoFocus
-            {...register('marketName')}
-            variant="secondary"
-          />
-          <InputField
-            id="marketDescription"
-            label="Fale um pouco mais sobre o seu Mercado"
-            maxLength={1200}
-            minLength={4}
-            placeholder="Digite uma descrição para seu estabelecimento"
-            spellCheck={false}
-            {...register('marketDescription')}
-            variant="secondary"
-          />
-          <InputField
-            className="mb-2"
-            id="email"
-            label="Email de Contato"
-            maxLength={60}
-            minLength={8}
-            placeholder="Digite um email de contato para seus clientes"
-            spellCheck={false}
-            {...register('email')}
-            variant="secondary"
-          />
+          <div className="mb-4 flex w-full flex-col gap-8 lg:flex-row lg:justify-between">
+            <div className="w-full max-w-[200px]">
+              {logo ? (
+                <div className="flex h-full max-h-[258px] w-full flex-col gap-4">
+                  <Image
+                    alt="Market Logo"
+                    className="mx-auto h-[200px] w-[200px] rounded-sm object-cover object-center"
+                    height={1080}
+                    src={logo}
+                    width={1080}
+                  />
+                  <Button className="flex min-w-full items-end justify-center text-center md:text-sm">
+                    Colocar outra logo
+                  </Button>
+                </div>
+              ) : (
+                <article className="mb-4 flex h-full max-h-[258px] flex-col items-center justify-center gap-4 border p-4">
+                  <MediaIcon />
+                  <UploadButton
+                    uploadImageAction={async (path: string) =>
+                      await handleUploadImage(path)
+                    }
+                    isLoading={isUploadLoading}
+                    setImagePath={setLogo}
+                  >
+                    Escolher imagem
+                  </UploadButton>
+                </article>
+              )}
+            </div>
+            <div className="flex w-full flex-col gap-1">
+              <InputField
+                id="marketName"
+                label="Nome do Mercado"
+                maxLength={80}
+                minLength={8}
+                placeholder="Digite o nome do seu estabelecimento"
+                spellCheck={false}
+                autoFocus
+                {...register('marketName')}
+                variant="secondary"
+              />
+              <InputField
+                id="marketDescription"
+                label="Fale um pouco mais sobre o seu Mercado"
+                maxLength={1200}
+                minLength={4}
+                placeholder="Digite uma descrição para seu estabelecimento"
+                spellCheck={false}
+                {...register('marketDescription')}
+                variant="secondary"
+              />
+              <InputField
+                className="mb-2"
+                id="email"
+                label="Email de Contato"
+                maxLength={60}
+                minLength={8}
+                placeholder="Digite um email de contato para seus clientes"
+                spellCheck={false}
+                {...register('email')}
+                variant="secondary"
+              />
+            </div>
+          </div>
+
           <PhoneNumber
             formMethods={formMethods}
             id="phone_number"
@@ -200,21 +215,6 @@ export const SecondStep: React.FC<SecondStepProps> = ({ setCurrentStep }) => {
             {...register('phone_number')}
             variant="secondary"
           />
-          <article className="mb-4 mt-8 flex flex-col items-center gap-4">
-            <MediaIcon />
-            <p className="text-center text-sm lg:text-base">
-              Insira a logo do seu mercado
-            </p>
-            <UploadButton
-              uploadImageAction={async (path: string) =>
-                await handleUploadImage(path)
-              }
-              isLoading={isUploadLoading}
-              setImagePath={setLogo}
-            >
-              Escolher imagem do computador
-            </UploadButton>
-          </article>
 
           {/* TODO: Add feedback to show the user when the image has been loaded
           (perhaps displaying it beside the input) */}
@@ -222,7 +222,6 @@ export const SecondStep: React.FC<SecondStepProps> = ({ setCurrentStep }) => {
           <InputField
             {...register('cep', {
               onChange: e => {
-                toast.info(e.target.value.length)
                 if (e.target.value.length === 8) {
                   getMarketAddress(e.target.value)
                 }
@@ -233,47 +232,50 @@ export const SecondStep: React.FC<SecondStepProps> = ({ setCurrentStep }) => {
             maxLength={8}
             minLength={8}
             placeholder="Digite aqui o CEP do seu estabelecimento"
-            spellCheck={false}
             type="number"
             variant="secondary"
           />
           <div className="flex w-full flex-col gap-2 lg:flex-row lg:justify-between lg:gap-8">
             <div className="w-full">
-              <SelectField
-                placeholder={
-                  !addressData
-                    ? 'Informe o CEP para preencher esse campo'
-                    : addressData.city
-                }
-                className="min-w-full"
-                id="city"
-                label="Cidade"
-                maxLength={40}
-                minLength={8}
-                name="city"
-                options={cities}
-                spellCheck={false}
-                {...register('city')}
-                variant="secondary"
+              <Controller
+                render={({ field }) => (
+                  <SelectField
+                    {...field}
+                    placeholder={
+                      !addressData?.state
+                        ? 'Selecione o estado'
+                        : addressData.state
+                    }
+                    className="min-w-full"
+                    label="Estado (UF)"
+                    options={[]}
+                    variant="secondary"
+                  />
+                )}
+                control={control}
+                name="state"
+                disabled
               />
             </div>
             <div className="w-full">
-              <SelectField
-                placeholder={
-                  !addressData
-                    ? 'Informe o CEP para preencher esse campo'
-                    : addressData.state
-                }
-                className="min-w-full"
-                id="state"
-                label="Estado (UF)"
-                maxLength={40}
-                minLength={8}
-                name="state"
-                options={BRAZILIAN_STATES}
-                spellCheck={false}
-                {...register('state')}
-                variant="secondary"
+              <Controller
+                render={({ field }) => (
+                  <SelectField
+                    placeholder={
+                      !addressData?.city
+                        ? 'Informe a sua cidade'
+                        : addressData.city
+                    }
+                    label="Cidade"
+                    name="city"
+                    options={[]}
+                    {...field}
+                    variant="secondary"
+                  />
+                )}
+                control={control}
+                name="city"
+                disabled
               />
             </div>
           </div>

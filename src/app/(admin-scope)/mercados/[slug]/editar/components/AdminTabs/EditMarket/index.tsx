@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import { useState } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
-import { useForm, useWatch } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import { MediaIcon } from '@/app/(user-scope)/mercados/cadastre-seu-mercado/components/icons/Media'
@@ -11,12 +12,9 @@ import { Button } from '@/components/toolkit/Button'
 import { InputField } from '@/components/toolkit/Fields/InputField'
 import { SelectField } from '@/components/toolkit/Fields/SelectField'
 import { PhoneNumber } from '@/components/toolkit/PhoneNumber'
-import { BRAZILIAN_CITIES } from '@/constants/common/brazilian-cities'
-import { BRAZILIAN_STATES } from '@/constants/common/brazilian.states'
 import { useAdminContext } from '@/contexts/AdminProvider'
 import { useUserSession } from '@/hooks/useUserSession'
 import { instanceMotor } from '@/instances/instanceMotor'
-import { formatCityName } from '@/utils/helpers/formatCityName'
 import { tryCatch } from '@/utils/helpers/tryCatch'
 import { uploadImage } from '@/utils/helpers/uploadImage'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -28,8 +26,7 @@ export const EditMarket: React.FC = () => {
   const { marketData } = useAdminContext()
 
   const [isUploadLoading, setIsUploadLoading] = useState<boolean>(false)
-  const [logo, setLogo] = useState<string>('')
-  const [cities, setCities] = useState<{ label: string; value: string }[]>([])
+  const [logo, setLogo] = useState<string>(marketData.logo_url)
 
   const { user } = useUserSession()
 
@@ -76,7 +73,7 @@ export const EditMarket: React.FC = () => {
 
     const newAddressData = {
       city: requestData.localidade,
-      state: requestData.uf,
+      state: requestData.estado,
       street: `${requestData.bairro}, ${requestData.logradouro}`
     }
 
@@ -114,26 +111,6 @@ export const EditMarket: React.FC = () => {
     }
   }
 
-  const selectedUF = useWatch({
-    control,
-    name: 'state'
-  })
-
-  useEffect(() => {
-    const estadoSelecionado = BRAZILIAN_CITIES.estados.find(
-      estado => estado.sigla.toLowerCase() === selectedUF?.toLowerCase()
-    )
-
-    const formattedCities = estadoSelecionado
-      ? estadoSelecionado.cidades.map(city => ({
-          label: city,
-          value: formatCityName(city)
-        }))
-      : []
-
-    setCities(formattedCities)
-  }, [selectedUF])
-
   return (
     <div className="flex w-full flex-col gap-6">
       <h2 className="text-xl font-medium lg:text-2xl">
@@ -142,74 +119,82 @@ export const EditMarket: React.FC = () => {
       <div className="flex flex-col gap-3 rounded-md border border-neutral-200 bg-white p-8">
         <form id="register-market" onSubmit={handleSubmit(onSubmit)}>
           <section className="flex w-full flex-col gap-1">
-            <InputField
-              defaultValue={marketData.name}
-              id="marketName"
-              label="Nome do Mercado"
-              maxLength={80}
-              minLength={8}
-              placeholder="Digite o nome do seu estabelecimento"
-              spellCheck={false}
-              variant="secondary"
-              autoFocus
-              disabled
-            />
-            <InputField
-              defaultValue={marketData.description}
-              id="marketDescription"
-              label="Fale um pouco mais sobre o seu Mercado"
-              maxLength={1200}
-              minLength={4}
-              placeholder="Digite uma descrição para seu estabelecimento"
-              spellCheck={false}
-              {...register('marketDescription')}
-              variant="secondary"
-            />
-            <InputField
-              className="mb-2"
-              defaultValue={marketData.email}
-              id="email"
-              label="Email de Contato"
-              maxLength={60}
-              minLength={8}
-              placeholder="Digite um email de contato para seus clientes"
-              spellCheck={false}
-              {...register('email')}
-              variant="secondary"
-            />
-            <PhoneNumber
-              defaultValue={marketData.phone_number}
-              formMethods={formMethods}
-              id="phone_number"
-              label="Telefone de contato"
-              maxLength={14}
-              minLength={8}
-              name="phone_number"
-              placeholder="Digite um telefone de contato para seus clientes"
-              spellCheck={false}
-              {...register('phone_number')}
-              variant="secondary"
-            />
-            <article className="mb-4 mt-8 flex flex-col items-center gap-4">
-              <MediaIcon />
-              <p className="text-center text-sm lg:text-base">
-                Insira a logo do seu mercado
-              </p>
-              <UploadButton
-                uploadImageAction={async (path: string) =>
-                  await handleUploadImage(path)
-                }
-                isLoading={isUploadLoading}
-                setImagePath={setLogo}
-              >
-                Escolher imagem do computador
-              </UploadButton>
-            </article>
+            <div className="mb-4 flex w-full flex-col gap-8 lg:flex-row lg:justify-between">
+              <div className="w-full max-w-[200px]">
+                {logo !== '' ? (
+                  <div className="flex h-full max-h-[258px] w-full flex-col gap-4">
+                    <Image
+                      alt="Market Logo"
+                      className="mx-auto h-[200px] w-[200px] rounded-sm object-cover object-center"
+                      height={1080}
+                      src={logo}
+                      width={1080}
+                    />
+                    <Button
+                      className="flex min-w-full items-end justify-center text-center md:text-sm"
+                      onClick={() => setLogo('')}
+                    >
+                      Colocar outra logo
+                    </Button>
+                  </div>
+                ) : (
+                  <article className="mb-4 flex h-full max-h-[258px] flex-col items-center justify-center gap-4 border p-4">
+                    <MediaIcon />
+                    <UploadButton
+                      uploadImageAction={async (path: string) =>
+                        await handleUploadImage(path)
+                      }
+                      isLoading={isUploadLoading}
+                      setImagePath={setLogo}
+                    >
+                      Escolher imagem
+                    </UploadButton>
+                  </article>
+                )}
+              </div>
+              <div className="flex w-full flex-col gap-1">
+                <InputField
+                  defaultValue={marketData.description}
+                  id="marketDescription"
+                  label="Fale um pouco mais sobre o seu Mercado"
+                  maxLength={1200}
+                  minLength={4}
+                  placeholder="Digite uma descrição para seu estabelecimento"
+                  spellCheck={false}
+                  {...register('marketDescription')}
+                  variant="secondary"
+                />
+                <InputField
+                  className="mb-2"
+                  defaultValue={marketData.email}
+                  id="email"
+                  label="Email de Contato"
+                  maxLength={60}
+                  minLength={8}
+                  placeholder="Digite um email de contato para seus clientes"
+                  spellCheck={false}
+                  {...register('email')}
+                  variant="secondary"
+                />
+                <PhoneNumber
+                  defaultValue={marketData.phone_number}
+                  formMethods={formMethods}
+                  id="phone_number"
+                  label="Telefone de contato"
+                  maxLength={14}
+                  minLength={8}
+                  name="phone_number"
+                  placeholder="Digite um telefone de contato para seus clientes"
+                  spellCheck={false}
+                  {...register('phone_number')}
+                  variant="secondary"
+                />
+              </div>
+            </div>
             <InputField
               defaultValue={marketData.zip_code}
               {...register('cep', {
                 onChange: e => {
-                  toast.info(e.target.value.length)
                   if (e.target.value.length === 8) {
                     getMarketAddress(e.target.value)
                   }
@@ -226,35 +211,41 @@ export const EditMarket: React.FC = () => {
             />
             <div className="flex w-full flex-col gap-2 lg:flex-row lg:justify-between lg:gap-8">
               <div className="w-full">
-                <SelectField
-                  className="min-w-full"
-                  defaultValue={marketData.city}
-                  id="city"
-                  label="Cidade"
-                  maxLength={40}
-                  minLength={8}
-                  name="city"
-                  options={cities}
-                  placeholder={marketData.city}
-                  spellCheck={false}
-                  {...register('city')}
-                  variant="secondary"
+                <Controller
+                  render={({ field }) => (
+                    <SelectField
+                      {...field}
+                      placeholder={
+                        !field.value ? marketData.state : field.value
+                      }
+                      className="min-w-full"
+                      id="state"
+                      label="Estado (UF)"
+                      options={[]}
+                      variant="secondary"
+                    />
+                  )}
+                  control={control}
+                  name="state"
+                  disabled
                 />
               </div>
               <div className="w-full">
-                <SelectField
-                  className="min-w-full"
-                  defaultValue={marketData.state.toLowerCase()}
-                  id="state"
-                  label="Estado (UF)"
-                  maxLength={40}
-                  minLength={8}
-                  name="state"
-                  options={BRAZILIAN_STATES}
-                  placeholder={marketData.state}
-                  spellCheck={false}
-                  {...register('state')}
-                  variant="secondary"
+                <Controller
+                  render={({ field }) => (
+                    <SelectField
+                      id="city"
+                      label="Cidade"
+                      name="city"
+                      options={[]}
+                      placeholder={!field.value ? marketData.city : field.value}
+                      {...field}
+                      variant="secondary"
+                    />
+                  )}
+                  control={control}
+                  name="city"
+                  disabled
                 />
               </div>
             </div>
@@ -276,7 +267,7 @@ export const EditMarket: React.FC = () => {
               type="submit"
               variant="primary"
             >
-              Cadastrar
+              Atualizar minhas informações
             </Button>
           </section>
         </form>

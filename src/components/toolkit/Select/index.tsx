@@ -1,6 +1,6 @@
 'use client'
 
-import { forwardRef, useState } from 'react'
+import { forwardRef } from 'react'
 
 import { generateRandomCode } from '@/utils/helpers/generateRandomValue'
 
@@ -12,6 +12,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     {
       variant,
       error,
+      value,
       placeholder,
       options,
       defaultValue = '',
@@ -23,27 +24,20 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     },
     ref
   ) => {
-    const [selectedValue, setSelectedValue] = useState(defaultValue)
-
-    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      setSelectedValue(event.target.value)
-
-      onChange && onChange(event)
-    }
-
     return (
       <div className="relative">
         <select
           className={selectVariants({
             variant,
             error: !!error,
-            hasCurrentValue: selectedValue !== ''
+            hasCurrentValue: value !== ''
           })}
           id={id}
           name={name}
           ref={ref}
+          value={value}
           {...props}
-          onChange={handleChange}
+          onChange={onChange}
         >
           <option defaultValue={defaultValue} value={defaultValue}>
             {placeholder}
