@@ -14,4 +14,5 @@ export interface SelectProps
   name: string
   options: SelectOption[]
   placeholder?: string
+  value?: string
 }

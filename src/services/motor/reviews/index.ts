@@ -3,7 +3,12 @@ import type { AxiosInstance } from 'axios'
 import type { Review } from '@/types/models/review'
 import type { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
 
-import type { CreateReviewPayload, GetReviewByIdPayload } from './types'
+import type {
+  CreateReviewPayload,
+  DeleteReviewByIdPayload,
+  GetReviewByIdPayload,
+  UpdateReviewByIdPayload
+} from './types'
 
 export class Reviews {
   private instance: AxiosInstance
@@ -37,10 +42,15 @@ export class Reviews {
   }
 
   createReview = async ({
+    token,
     payload
   }: CreateReviewPayload): Promise<ServiceRequestResponse<Review>> => {
     try {
-      const { data, status } = await this.instance.post(`/reviews`, payload)
+      const { data, status } = await this.instance.post(`/reviews`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
 
       if (status !== 200) {
         throw new Error(data.message)
@@ -59,11 +69,17 @@ export class Reviews {
   }
 
   updateReview = async ({
+    token,
     reviewId
-  }: GetReviewByIdPayload): Promise<ServiceRequestResponse<void>> => {
+  }: UpdateReviewByIdPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.put(
-        `/reviews/${reviewId.toString()}`
+        `/reviews/${reviewId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {
@@ -81,11 +97,17 @@ export class Reviews {
   }
 
   deleteReview = async ({
+    token,
     reviewId
-  }: GetReviewByIdPayload): Promise<ServiceRequestResponse<void>> => {
+  }: DeleteReviewByIdPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.delete(
-        `/reviews/${reviewId.toString()}`
+        `/reviews/${reviewId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {

@@ -15,12 +15,17 @@ export interface CreateProductPayload {
     | 'stock'
     | 'unit_price'
   >
+  token: string
 }
 
 export interface GetMarketProductsPayload {
   marketId: number
 }
 
-export interface UpdateProductByIdPayload extends GetProductByIdPayload {}
+export interface UpdateProductByIdPayload extends GetProductByIdPayload {
+  token: string
+}
 
-export interface DeleteProductByIdPayload extends GetProductByIdPayload {}
+export interface DeleteProductByIdPayload extends GetProductByIdPayload {
+  token: string
+}

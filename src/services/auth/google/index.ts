@@ -3,7 +3,12 @@ import type { AxiosInstance } from 'axios'
 import type { User } from '@/types/models/user'
 import type { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
 
-import type { CreateUserData, LoginUserData, UpdateUserData } from './types'
+import type {
+  CreateUserData,
+  LoginUserData,
+  LoginUserResponse,
+  UpdateUserData
+} from './types'
 
 export class GoogleAuth {
   private instance: AxiosInstance
@@ -39,7 +44,7 @@ export class GoogleAuth {
 
   loginUser = async (
     payload: LoginUserData
-  ): Promise<ServiceRequestResponse<User>> => {
+  ): Promise<ServiceRequestResponse<LoginUserResponse>> => {
     try {
       const { data, status } = await this.instance.get(
         `/users/google/login-user/${payload.googleId}`
@@ -49,7 +54,12 @@ export class GoogleAuth {
         throw new Error(data.message)
       }
 
-      return data
+      const { token, ...user } = data
+
+      return {
+        ...user,
+        token
+      }
     } catch (err) {
       console.error({
         loginUserErrorMessage: err.message
@@ -76,7 +86,7 @@ export class GoogleAuth {
       return data
     } catch (err) {
       console.error({
-        loginUserErrorMessage: err.message
+        updateUserErrorMessage: err.message
       })
       return {
         error: err.message

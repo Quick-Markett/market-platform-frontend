@@ -19,11 +19,17 @@ export class Categories {
   }
 
   getCategoryById = async ({
+    token,
     categoryId
   }: GetCategoryByIdPayload): Promise<ServiceRequestResponse<Category>> => {
     try {
       const { data, status } = await this.instance.get(
-        `/categories/${categoryId.toString()}`
+        `/categories/${categoryId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {
@@ -43,13 +49,18 @@ export class Categories {
   }
 
   getMarketCategories = async ({
-    marketId
+    token
   }: GetMarketCategoriesPayload): Promise<
     ServiceRequestResponse<Category[]>
   > => {
     try {
       const { data, status } = await this.instance.get(
-        `/categories/get-market-categories/${marketId.toString()}`
+        `/categories/get-market-categories`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {
@@ -69,10 +80,19 @@ export class Categories {
   }
 
   createCategory = async ({
+    token,
     payload
   }: CreateCategoryPayload): Promise<ServiceRequestResponse<Category>> => {
     try {
-      const { data, status } = await this.instance.post(`/categories`, payload)
+      const { data, status } = await this.instance.post(
+        `/categories`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
 
       if (status !== 200) {
         throw new Error(data.message)
@@ -91,11 +111,17 @@ export class Categories {
   }
 
   updateCategory = async ({
+    token,
     categoryId
   }: UpdateCategoryPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.put(
-        `/categories/${categoryId.toString()}`
+        `/categories/${categoryId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {
@@ -113,11 +139,17 @@ export class Categories {
   }
 
   deleteCategory = async ({
+    token,
     categoryId
   }: DeleteCategoryPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.delete(
-        `/categories/${categoryId.toString()}`
+        `/categories/${categoryId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {

@@ -20,11 +20,17 @@ export class Orders {
   }
 
   getOrderById = async ({
+    token,
     orderId
   }: GetOrderByIdPayload): Promise<ServiceRequestResponse<Order>> => {
     try {
       const { data, status } = await this.instance.get(
-        `/orders/${orderId.toString()}`
+        `/orders/${orderId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {
@@ -44,11 +50,17 @@ export class Orders {
   }
 
   getMarketOrders = async ({
+    token,
     orderId
   }: GetMarketOrdersPayload): Promise<ServiceRequestResponse<Order[]>> => {
     try {
       const { data, status } = await this.instance.get(
-        `/orders/get-market-orders/${orderId.toString()}`
+        `/orders/get-market-orders/${orderId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {
@@ -68,11 +80,17 @@ export class Orders {
   }
 
   getUserOrders = async ({
+    token,
     userId
   }: GetUserOrdersPayload): Promise<ServiceRequestResponse<Order[]>> => {
     try {
       const { data, status } = await this.instance.get(
-        `/orders/get-user-orders/${userId.toString()}`
+        `/orders/get-user-orders/${userId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {
@@ -92,10 +110,15 @@ export class Orders {
   }
 
   createOrder = async ({
+    token,
     payload
   }: CreateOrderPayload): Promise<ServiceRequestResponse<Order>> => {
     try {
-      const { data, status } = await this.instance.post(`/orders`, payload)
+      const { data, status } = await this.instance.post(`/orders`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
 
       if (status !== 200) {
         throw new Error(data.message)
@@ -114,11 +137,17 @@ export class Orders {
   }
 
   updateOrder = async ({
+    token,
     orderId
   }: UpdateOrderByIdPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.put(
-        `/orders/${orderId.toString()}`
+        `/orders/${orderId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {
@@ -136,11 +165,17 @@ export class Orders {
   }
 
   deleteOrder = async ({
+    token,
     orderId
   }: DeleteOrderByIdPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.delete(
-        `/orders/${orderId.toString()}`
+        `/orders/${orderId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {

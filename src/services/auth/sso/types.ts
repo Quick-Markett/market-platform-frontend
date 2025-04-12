@@ -16,3 +16,8 @@ export interface LoginUserData {
   email: string
   password: string
 }
+
+export interface LoginUserResponse {
+  token: string
+  user: User
+}

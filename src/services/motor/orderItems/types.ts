@@ -2,6 +2,7 @@ import type { OrderItem } from '@/types/models/orderItem'
 
 export interface GetOrderItemByIdPayload {
   orderItemId: number
+  token: string
 }
 
 export interface CreateOrderItemPayload {
@@ -9,6 +10,7 @@ export interface CreateOrderItemPayload {
     OrderItem,
     'order_id' | 'product_id' | 'quantity' | 'total_price' | 'unit_price'
   >
+  token: string
 }
 
 export interface GetOrderItemsPayload extends GetOrderItemByIdPayload {}

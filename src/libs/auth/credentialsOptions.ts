@@ -43,7 +43,9 @@ export const credentialsOptions = {
 
           if (userData && !error) {
             return {
-              ...userData
+              ...userData,
+              id: userData.user.id,
+              token: userData.token
             }
           }
         }
@@ -67,7 +69,9 @@ export const credentialsOptions = {
 
             if (loginData && !loginError) {
               return {
-                ...loginData
+                ...loginData,
+                id: loginData.user.id,
+                token: loginData.token
               }
             }
           }

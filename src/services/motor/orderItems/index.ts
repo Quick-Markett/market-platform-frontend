@@ -20,11 +20,17 @@ export class OrderItems {
   }
 
   getOrderItemById = async ({
+    token,
     orderItemId
   }: GetOrderItemByIdPayload): Promise<ServiceRequestResponse<OrderItem>> => {
     try {
       const { data, status } = await this.instance.get(
-        `/order-items/${orderItemId.toString()}`
+        `/order-items/${orderItemId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {
@@ -44,11 +50,17 @@ export class OrderItems {
   }
 
   getOrderItems = async ({
+    token,
     orderItemId
   }: GetOrderItemsPayload): Promise<ServiceRequestResponse<Product[]>> => {
     try {
       const { data, status } = await this.instance.get(
-        `/order-items/get-order-items/${orderItemId.toString()}`
+        `/order-items/get-order-items/${orderItemId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {
@@ -68,10 +80,19 @@ export class OrderItems {
   }
 
   createOrderItem = async ({
+    token,
     payload
   }: CreateOrderItemPayload): Promise<ServiceRequestResponse<OrderItem>> => {
     try {
-      const { data, status } = await this.instance.post(`/order-items`, payload)
+      const { data, status } = await this.instance.post(
+        `/order-items`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
 
       if (status !== 200) {
         throw new Error(data.message)
@@ -90,11 +111,17 @@ export class OrderItems {
   }
 
   updateOrderItem = async ({
+    token,
     orderItemId
   }: UpdateOrderItemPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.put(
-        `/order-items/${orderItemId.toString()}`
+        `/order-items/${orderItemId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {
@@ -112,11 +139,17 @@ export class OrderItems {
   }
 
   deleteOrderItem = async ({
+    token,
     orderItemId
   }: DeleteOrderItemPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.delete(
-        `/order-items/${orderItemId.toString()}`
+        `/order-items/${orderItemId.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       )
 
       if (status !== 200) {

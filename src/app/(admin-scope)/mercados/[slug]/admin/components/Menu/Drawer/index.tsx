@@ -16,7 +16,7 @@ export const Drawer: React.FC<DrawerProps> = ({
     setIsOpen(false)
   }
 
-  useLockBodyScroll(isOpen)
+  useLockBodyScroll(false)
 
   return (
     <Transition.Root as="section" show={isOpen} unmount={false}>
