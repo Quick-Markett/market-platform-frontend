@@ -17,6 +17,7 @@ export const googleOptions = {
 
         if (userData && !error) {
           return {
+            id: userData.id,
             ...userData
           }
         }
@@ -52,7 +53,7 @@ export const googleOptions = {
     }
 
     return {
-      id: user.id,
+      id: user.id || googleId,
       ...user
     }
   }

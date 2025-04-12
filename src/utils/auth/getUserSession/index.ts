@@ -7,6 +7,5 @@ import type { User } from '@/types/models/user'
 export const getUserSession = async (): Promise<User> => {
   const session = await getServerSession(authOptions)
 
-  // @ts-expect-error
-  return session?.user.data as User
+  return session?.user as User
 }

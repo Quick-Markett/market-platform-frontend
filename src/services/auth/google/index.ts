@@ -76,7 +76,7 @@ export class GoogleAuth {
       return data
     } catch (err) {
       console.error({
-        loginUserErrorMessage: err.message
+        updateUserErrorMessage: err.message
       })
       return {
         error: err.message

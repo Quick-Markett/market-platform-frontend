@@ -47,7 +47,7 @@ export const authOptions: AuthOptions = {
   },
   pages: {
     signIn: '/',
-    error: '/'
+    error: '/mercados'
   },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
