@@ -1,6 +1,6 @@
 import { Anchor } from '@/components/toolkit/Anchor'
 
-import { MarketActionsProps } from './types'
+import type { MarketActionsProps } from './types'
 
 export const MarketActions: React.FC<MarketActionsProps> = ({ market }) => {
   return (

@@ -1,4 +1,4 @@
-import { GetUrlWithParamsProps } from './types'
+import type { GetUrlWithParamsProps } from './types'
 
 export const getUrlWithParams = ({
   baseUrl = '',

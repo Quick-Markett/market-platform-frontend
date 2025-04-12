@@ -1,5 +1,5 @@
-import { ModalProps } from '@/components/toolkit/Modal/types'
-import { GetAuthFormCookiesDataReturn } from '@/utils/auth/getAuthFormCookiesData/types'
+import type { ModalProps } from '@/components/toolkit/Modal/types'
+import type { GetAuthFormCookiesDataReturn } from '@/utils/auth/getAuthFormCookiesData/types'
 
 export interface AuthModalProps extends Partial<ModalProps> {}
 

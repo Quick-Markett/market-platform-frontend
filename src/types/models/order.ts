@@ -1,6 +1,6 @@
-import { Market } from './market'
-import { OrderItem } from './orderItem'
-import { User } from './user'
+import type { Market } from './market'
+import type { OrderItem } from './orderItem'
+import type { User } from './user'
 
 export interface Order {
   created_at: string

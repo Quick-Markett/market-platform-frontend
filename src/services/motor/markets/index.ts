@@ -1,9 +1,9 @@
-import { AxiosInstance } from 'axios'
+import type { AxiosInstance } from 'axios'
 
-import { Market } from '@/types/models/market'
-import { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
+import type { Market } from '@/types/models/market'
+import type { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
 
-import {
+import type {
   CreateMarketPayload,
   DeleteMarketPayload,
   GetMarketByIdPayload,

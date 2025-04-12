@@ -1,5 +1,5 @@
 import { LoadingIcon } from './icons'
-import { ButtonProps } from './types'
+import type { ButtonProps } from './types'
 import { buttonVariants } from './variance'
 
 export const Button: React.FC<ButtonProps> = ({

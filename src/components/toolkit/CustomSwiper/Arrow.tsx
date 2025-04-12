@@ -1,4 +1,4 @@
-import { IconProps } from '@/types/components/icons'
+import type { IconProps } from '@/types/components/icons'
 
 export const Arrow: React.FC<IconProps> = props => {
   return (

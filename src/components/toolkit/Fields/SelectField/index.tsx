@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 
 import { Select } from '../../Select'
 import { LabelField } from '../LabelField'
-import { SelectFieldProps } from './types'
+import type { SelectFieldProps } from './types'
 
 export const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
   ({ id, label, errorMessage, required, variant, ...props }, ref) => {

@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers'
 
 import { auth } from '@/instances/instanceAuth'
-import { User } from '@/types/models/user'
+import type { User } from '@/types/models/user'
 import { getAuthFormCookiesData } from '@/utils/auth/getAuthFormCookiesData'
 
 export const updateUserSsoAccount = async (user: User) => {

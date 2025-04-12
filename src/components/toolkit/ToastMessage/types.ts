@@ -1,4 +1,4 @@
-import { DisclaimerProps } from '../Disclaimer/types'
+import type { DisclaimerProps } from '../Disclaimer/types'
 
 export interface ToasterProps {
   defaultDuration?: number

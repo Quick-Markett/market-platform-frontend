@@ -1,4 +1,4 @@
-import { Review } from '@/types/models/review'
+import type { Review } from '@/types/models/review'
 
 export interface GetReviewByIdPayload {
   reviewId: number

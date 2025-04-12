@@ -1,7 +1,7 @@
 import Tippy from '@tippyjs/react'
 
 import { Disclaimer } from '../Disclaimer'
-import { TooltipProps } from './types'
+import type { TooltipProps } from './types'
 
 export const Tooltip: React.FC<TooltipProps> = ({
   content,

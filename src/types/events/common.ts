@@ -1,4 +1,4 @@
-import { CustomEvents } from './customEvents'
+import type { CustomEvents } from './customEvents'
 
 export type CustomEventHandler = (event: Event) => void
 

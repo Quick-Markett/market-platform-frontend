@@ -1,7 +1,7 @@
-import { VariantProps } from 'class-variance-authority'
-import { LabelHTMLAttributes } from 'react'
+import type { VariantProps } from 'class-variance-authority'
+import type { LabelHTMLAttributes } from 'react'
 
-import { labelVariants } from './variance'
+import type { labelVariants } from './variance'
 
 export interface LabelFieldProps
   extends LabelHTMLAttributes<HTMLLabelElement>,

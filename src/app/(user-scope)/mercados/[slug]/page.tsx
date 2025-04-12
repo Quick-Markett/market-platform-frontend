@@ -1,4 +1,4 @@
-import { NextPage } from 'next'
+import type { NextPage } from 'next'
 import { notFound } from 'next/navigation'
 
 import { WelcomeBar } from '@/components/common/WelcomeBar'
@@ -6,7 +6,7 @@ import { instanceMotor } from '@/instances/instanceMotor'
 import { getMetaData } from '@/utils/seo/getMetaData'
 
 import { Header } from './components/Header'
-import { DynamicMarketPageProps } from './types'
+import type { DynamicMarketPageProps } from './types'
 
 export async function generateMetadata({ params }: DynamicMarketPageProps) {
   const { slug } = await params

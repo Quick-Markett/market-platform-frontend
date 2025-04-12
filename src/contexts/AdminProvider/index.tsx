@@ -2,11 +2,11 @@
 
 import { createContext, useContext, useState } from 'react'
 
-import { Category } from '@/types/models/category'
-import { Market } from '@/types/models/market'
-import { Product } from '@/types/models/product'
+import type { Category } from '@/types/models/category'
+import type { Market } from '@/types/models/market'
+import type { Product } from '@/types/models/product'
 
-import {
+import type {
   AdminContextProps,
   AdminContextProviderProps,
   AdminTabs

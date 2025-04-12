@@ -1,4 +1,4 @@
-import { PaginateArrayProps } from './types'
+import type { PaginateArrayProps } from './types'
 
 export const paginateArray = <T>({
   array,

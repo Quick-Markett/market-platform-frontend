@@ -1,9 +1,9 @@
-import { AxiosInstance } from 'axios'
+import type { AxiosInstance } from 'axios'
 
-import { Category } from '@/types/models/category'
-import { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
+import type { Category } from '@/types/models/category'
+import type { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
 
-import {
+import type {
   CreateCategoryPayload,
   DeleteCategoryPayload,
   GetCategoryByIdPayload,

@@ -1,6 +1,6 @@
-import { AuthModalEventData } from '@/utils/customEvents/@handlers/authModal/types'
+import type { AuthModalEventData } from '@/utils/customEvents/@handlers/authModal/types'
 
-import { Category } from '../models/category'
+import type { Category } from '../models/category'
 
 export interface CustomEvents {
   'auth-modal-event': {

@@ -2,12 +2,13 @@
 
 import { forwardRef, useImperativeHandle, useRef } from 'react'
 import { Navigation, Pagination } from 'swiper/modules'
-import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
+import type { SwiperRef } from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { Arrow } from './Arrow'
 import { defaultOptions } from './data'
 import { getSwiperStyles } from './styles'
-import { CustomSwiperProps } from './types'
+import type { CustomSwiperProps } from './types'
 
 export const CustomSwiper = forwardRef((props: CustomSwiperProps, ref) => {
   const {

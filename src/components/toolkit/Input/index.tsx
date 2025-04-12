@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 
-import { InputProps } from './types'
+import type { InputProps } from './types'
 import { inputVariants } from './variance'
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(

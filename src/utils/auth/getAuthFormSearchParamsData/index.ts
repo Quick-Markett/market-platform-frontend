@@ -1,8 +1,8 @@
 'use client'
 
-import { ReadonlyURLSearchParams } from 'next/navigation'
+import type { ReadonlyURLSearchParams } from 'next/navigation'
 
-import { GetAuthFormSearchParamsDataReturn } from './types'
+import type { GetAuthFormSearchParamsDataReturn } from './types'
 
 export const getAuthFormSearchParamsData = (
   searchParams: ReadonlyURLSearchParams

@@ -1,7 +1,7 @@
-import { VariantProps } from 'class-variance-authority'
-import { HTMLAttributes } from 'react'
+import type { VariantProps } from 'class-variance-authority'
+import type { HTMLAttributes } from 'react'
 
-import { breadcrumbVariants } from './variance'
+import type { breadcrumbVariants } from './variance'
 
 export interface BreadcrumbItem {
   href?: string

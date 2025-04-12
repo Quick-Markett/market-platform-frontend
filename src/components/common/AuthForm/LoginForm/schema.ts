@@ -6,10 +6,10 @@ export const loginFormSchema = () =>
   z.object({
     email: z
       .string()
-      .nonempty('Esse campo é obrigatório.')
-      .email({ message: 'Esse campo é obrigatório.' })
+      .nonempty('Campo obrigatório..')
+      .email({ message: 'Campo obrigatório..' })
       .refine(value => normalEmailValidation({ value }), {
-        message: 'Esse campo é obrigatório.'
+        message: 'Campo obrigatório..'
       }),
-    password: z.string().nonempty('Esse campo é obrigatório.')
+    password: z.string().nonempty('Campo obrigatório..')
   })

@@ -1,3 +1,3 @@
-import { TippyProps } from '@tippyjs/react'
+import type { TippyProps } from '@tippyjs/react'
 
 export interface TooltipProps extends TippyProps {}

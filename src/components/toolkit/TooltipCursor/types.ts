@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 
 export interface TooltipCursorProps extends PropsWithChildren {
   content: string

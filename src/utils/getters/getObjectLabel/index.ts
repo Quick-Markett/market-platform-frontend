@@ -1,4 +1,4 @@
-import { ObjectItem } from './types'
+import type { ObjectItem } from './types'
 
 export const getObjectLabel = (
   object: ObjectItem[]

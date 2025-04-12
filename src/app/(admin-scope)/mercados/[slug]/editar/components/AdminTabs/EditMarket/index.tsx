@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { SubmitHandler, useForm, useWatch } from 'react-hook-form'
+import type { SubmitHandler } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import { MediaIcon } from '@/app/(user-scope)/mercados/cadastre-seu-mercado/components/icons/Media'
@@ -21,7 +22,7 @@ import { uploadImage } from '@/utils/helpers/uploadImage'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { updateMarketSchema } from './schema'
-import { RegisterMarketFormInputs } from './types'
+import type { RegisterMarketFormInputs } from './types'
 
 export const EditMarket: React.FC = () => {
   const { marketData } = useAdminContext()

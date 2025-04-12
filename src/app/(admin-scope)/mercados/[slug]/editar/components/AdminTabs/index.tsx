@@ -4,7 +4,7 @@ import { Container } from '@/components/toolkit/Container'
 import { useAdminContext } from '@/contexts/AdminProvider'
 
 import { ADMIN_TABS } from './data'
-import { AdminTabsProps } from './types'
+import type { AdminTabsProps } from './types'
 
 export const AdminTabs: React.FC<AdminTabsProps> = () => {
   const { selectedTab } = useAdminContext()

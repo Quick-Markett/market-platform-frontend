@@ -1,4 +1,4 @@
-import { FormStepProps } from '../types'
+import type { FormStepProps } from '../types'
 
 export interface LoginFormProps extends FormStepProps {}
 

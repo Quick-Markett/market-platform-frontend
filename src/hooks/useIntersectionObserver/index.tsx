@@ -1,4 +1,5 @@
-import { RefObject, useEffect, useMemo, useState } from 'react'
+import type { RefObject } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 export const useIntersectionObserver = (
   options: IntersectionObserverInit,

@@ -1,6 +1,6 @@
 import { triggerCustomEvent } from '@/utils/customEvents/triggerCustomEvent'
 
-import { AuthModalEventData } from './types'
+import type { AuthModalEventData } from './types'
 
 export const handleOpenAuthModal = (data?: AuthModalEventData) => {
   triggerCustomEvent({

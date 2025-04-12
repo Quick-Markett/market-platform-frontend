@@ -2,9 +2,9 @@
 
 import { cookies } from 'next/headers'
 
-import { AuthFormCustomSteps } from '@/components/common/AuthForm/types'
+import type { AuthFormCustomSteps } from '@/components/common/AuthForm/types'
 
-import { GetAuthFormCookiesDataReturn } from './types'
+import type { GetAuthFormCookiesDataReturn } from './types'
 
 export const getAuthFormCookiesData =
   async (): Promise<GetAuthFormCookiesDataReturn> => {

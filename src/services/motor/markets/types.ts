@@ -1,4 +1,4 @@
-import { Market } from '@/types/models/market'
+import type { Market } from '@/types/models/market'
 
 export interface GetMarketByIdPayload {
   marketId: number

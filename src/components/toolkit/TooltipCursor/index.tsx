@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ExclamationCircle } from '@/assets/common/ExclamationCircle'
 
 import { Disclaimer } from '../Disclaimer'
-import { TooltipCursorProps } from './types'
+import type { TooltipCursorProps } from './types'
 
 export const TooltipCursor: React.FC<TooltipCursorProps> = ({
   children,

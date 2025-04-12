@@ -1,4 +1,4 @@
-import { DisclaimerProps } from './types'
+import type { DisclaimerProps } from './types'
 import { disclaimerVariants } from './variance'
 
 export const Disclaimer: React.FC<DisclaimerProps> = ({

@@ -1,8 +1,8 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 import { BASE_URL } from '@/constants/environments/baseUrl'
 
-import { GetMetaDataProps } from './types'
+import type { GetMetaDataProps } from './types'
 
 export const getMetaData = ({
   description,

@@ -1,6 +1,6 @@
-import { VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'class-variance-authority'
 
-import { spinVariants } from './variance'
+import type { spinVariants } from './variance'
 
 export interface SpinProps
   extends React.HTMLAttributes<HTMLElement>,

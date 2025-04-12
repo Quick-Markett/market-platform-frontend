@@ -3,7 +3,7 @@ import { HiXMark } from 'react-icons/hi2'
 
 import { Dialog, Transition } from '@headlessui/react'
 
-import { ModalProps } from './types'
+import type { ModalProps } from './types'
 
 export const Modal: React.FC<ModalProps> = ({
   isOpen,

@@ -1,7 +1,7 @@
 import { Button } from '@/components/toolkit/Button'
 
 import { RegisterYourMarket } from '../../icons/RegisterYourMarket'
-import { FirstStepProps } from './types'
+import type { FirstStepProps } from './types'
 
 export const FirstStep: React.FC<FirstStepProps> = ({ setCurrentStep }) => {
   return (

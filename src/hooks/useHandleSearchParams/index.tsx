@@ -1,6 +1,6 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
-import { HandleRemoveParamData, HandleSetParamData } from './types'
+import type { HandleRemoveParamData, HandleSetParamData } from './types'
 
 export const useHandleSearchParams = () => {
   const searchParams = useSearchParams()

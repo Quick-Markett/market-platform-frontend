@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { AuthOptions } from 'next-auth'
+import type { AuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 
-import { User } from '@/types/models/user'
+import type { User } from '@/types/models/user'
 
 import { credentialsOptions } from './credentialsOptions'
 import { googleOptions } from './googleOptions'

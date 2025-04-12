@@ -1,9 +1,9 @@
-import { AxiosInstance } from 'axios'
+import type { AxiosInstance } from 'axios'
 
-import { User } from '@/types/models/user'
-import { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
+import type { User } from '@/types/models/user'
+import type { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
 
-import { CreateUserData, LoginUserData, UpdateUserData } from './types'
+import type { CreateUserData, LoginUserData, UpdateUserData } from './types'
 
 export class GoogleAuth {
   private instance: AxiosInstance

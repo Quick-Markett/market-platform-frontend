@@ -4,7 +4,7 @@ import { forwardRef, useState } from 'react'
 
 import { generateRandomCode } from '@/utils/helpers/generateRandomValue'
 
-import { SelectProps } from './types'
+import type { SelectProps } from './types'
 import { selectVariants } from './variance'
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(

@@ -1,4 +1,5 @@
-import axios, { AxiosInstance } from 'axios'
+import type { AxiosInstance } from 'axios'
+import axios from 'axios'
 
 import { motorApiBaseUrl } from '@/constants/environments/motorApiBaseUrl'
 import { motorApiHeaders } from '@/constants/headers/motorApiHeaders'

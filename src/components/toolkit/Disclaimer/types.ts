@@ -1,6 +1,6 @@
-import { VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'class-variance-authority'
 
-import { disclaimerVariants } from './variance'
+import type { disclaimerVariants } from './variance'
 
 export interface DisclaimerProps
   extends React.HTMLAttributes<HTMLDivElement>,

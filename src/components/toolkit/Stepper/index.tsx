@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-import { ChildrenProps, StepperProps } from './types'
+import type { ChildrenProps, StepperProps } from './types'
 
 export const Stepper: React.FC<StepperProps> = ({
   initialStep = 0,

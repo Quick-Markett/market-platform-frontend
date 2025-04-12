@@ -1,4 +1,4 @@
-import { NextPage } from 'next'
+import type { NextPage } from 'next'
 
 import { WelcomeBar } from '@/components/common/WelcomeBar'
 import { getMetaData } from '@/utils/seo/getMetaData'

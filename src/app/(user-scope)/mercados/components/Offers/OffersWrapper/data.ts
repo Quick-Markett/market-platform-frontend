@@ -1,6 +1,6 @@
-import { SwiperOptions } from 'swiper/types'
+import type { SwiperOptions } from 'swiper/types'
 
-import { OfferProductProps } from './types'
+import type { OfferProductProps } from './types'
 
 export const OFFERS: OfferProductProps[] = [
   {

@@ -1,4 +1,4 @@
-import { User } from '@/types/models/user'
+import type { User } from '@/types/models/user'
 
 export interface CreateUserData
   extends Pick<

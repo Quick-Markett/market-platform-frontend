@@ -1,6 +1,6 @@
 import React, { createElement } from 'react'
 
-import { ContainerProps } from './types'
+import type { ContainerProps } from './types'
 
 export const Container: React.FC<ContainerProps> = ({
   children,

@@ -6,7 +6,7 @@ import { Stepper } from '@/components/toolkit/Stepper'
 
 import { LoginForm } from './LoginForm'
 import { SignUpForm } from './SignUpForm'
-import { AuthFormCustomSteps, CommonFormsData } from './types'
+import type { AuthFormCustomSteps, CommonFormsData } from './types'
 
 const customSteps: AuthFormCustomSteps[] = ['login', 'signUp']
 

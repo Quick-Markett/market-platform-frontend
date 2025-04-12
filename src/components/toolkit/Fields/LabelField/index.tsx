@@ -1,4 +1,4 @@
-import { LabelFieldProps } from './types'
+import type { LabelFieldProps } from './types'
 import { labelVariants } from './variance'
 
 export const LabelField: React.FC<LabelFieldProps> = ({

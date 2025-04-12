@@ -1,5 +1,5 @@
-import { Order } from './order'
-import { Product } from './product'
+import type { Order } from './order'
+import type { Product } from './product'
 
 export interface Review {
   comment?: string

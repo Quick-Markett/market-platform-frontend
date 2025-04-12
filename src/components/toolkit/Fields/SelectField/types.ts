@@ -1,4 +1,4 @@
-import { SelectProps } from '../../Select/types'
+import type { SelectProps } from '../../Select/types'
 
 export interface SelectFieldProps extends SelectProps {
   errorMessage?: string

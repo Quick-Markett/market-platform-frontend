@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { AnchorProps } from './types'
+import type { AnchorProps } from './types'
 import { anchorVariants } from './variance'
 
 export const Anchor: React.FC<AnchorProps> = ({

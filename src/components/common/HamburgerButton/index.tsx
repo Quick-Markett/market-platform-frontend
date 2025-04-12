@@ -1,4 +1,4 @@
-import { HamburgerButtonProps } from './types'
+import type { HamburgerButtonProps } from './types'
 
 export const HamburgerButton: React.FC<HamburgerButtonProps> = ({
   isOpen,

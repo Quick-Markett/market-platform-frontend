@@ -1,6 +1,6 @@
 import { triggerCustomEvent } from '@/utils/customEvents/triggerCustomEvent'
 
-import { HandleOpenEditCategoryModalProps } from './types'
+import type { HandleOpenEditCategoryModalProps } from './types'
 
 export const handleOpenEditCategoryModal = ({
   category

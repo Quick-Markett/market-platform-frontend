@@ -1,11 +1,11 @@
-import { NextPage } from 'next'
+import type { NextPage } from 'next'
 import { notFound } from 'next/navigation'
 
 import { AdminContextProvider } from '@/contexts/AdminProvider'
 import { instanceMotor } from '@/instances/instanceMotor'
 import { getMetaData } from '@/utils/seo/getMetaData'
 
-import { DynamicMarketPageProps } from '../../../../(user-scope)/mercados/[slug]/types'
+import type { DynamicMarketPageProps } from '../../../../(user-scope)/mercados/[slug]/types'
 import { AdminTabs } from './components/AdminTabs'
 import { CreateCategoryModal } from './components/AdminTabs/EditCategories/CreateCategoryModal'
 import { Menu } from './components/Menu'

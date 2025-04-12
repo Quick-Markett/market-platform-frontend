@@ -1,4 +1,4 @@
-import { Category } from '@/types/models/category'
+import type { Category } from '@/types/models/category'
 
 export interface GetCategoryByIdPayload {
   categoryId: number

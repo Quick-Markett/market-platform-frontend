@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
+import type React from 'react'
 
 export interface ModalProps {
   children: React.JSX.Element

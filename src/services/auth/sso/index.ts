@@ -1,10 +1,10 @@
-import { AxiosInstance } from 'axios'
+import type { AxiosInstance } from 'axios'
 
-import { User } from '@/types/models/user'
-import { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
+import type { User } from '@/types/models/user'
+import type { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
 import { generateSsoToken } from '@/utils/auth/generateSsoToken'
 
-import { CreateUserData, LoginUserData } from './types'
+import type { CreateUserData, LoginUserData } from './types'
 
 export class SsoAuth {
   private instance: AxiosInstance

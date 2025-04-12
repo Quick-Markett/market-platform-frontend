@@ -1,7 +1,7 @@
-import { VariantProps } from 'class-variance-authority'
-import { InputHTMLAttributes } from 'react'
+import type { VariantProps } from 'class-variance-authority'
+import type { InputHTMLAttributes } from 'react'
 
-import { inputVariants } from './variance'
+import type { inputVariants } from './variance'
 
 export interface InputProps
   extends InputHTMLAttributes<HTMLInputElement>,

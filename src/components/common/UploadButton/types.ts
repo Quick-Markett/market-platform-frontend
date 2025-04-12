@@ -1,4 +1,4 @@
-import { PropsWithChildren, SetStateAction } from 'react'
+import type { PropsWithChildren, SetStateAction } from 'react'
 
 export interface UploadButtonProps extends PropsWithChildren {
   isLoading: boolean

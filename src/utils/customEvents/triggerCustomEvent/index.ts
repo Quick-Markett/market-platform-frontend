@@ -1,5 +1,5 @@
-import { CustomEvents } from '@/types/events/customEvents'
-import { TriggerCustomEventProps } from '@/types/events/triggerCustomEvent'
+import type { CustomEvents } from '@/types/events/customEvents'
+import type { TriggerCustomEventProps } from '@/types/events/triggerCustomEvent'
 
 export const triggerCustomEvent = <EventName extends keyof CustomEvents>({
   eventName,

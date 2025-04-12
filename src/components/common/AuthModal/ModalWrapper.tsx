@@ -10,9 +10,9 @@ import { useEventListener } from '@/hooks/useEventListener'
 import { useUserSession } from '@/hooks/useUserSession'
 import { getAuthFormSearchParamsData } from '@/utils/auth/getAuthFormSearchParamsData'
 import { updateUserSsoAccount } from '@/utils/auth/updateUserSsoAccount'
-import { AuthModalEventData } from '@/utils/customEvents/@handlers/authModal/types'
+import type { AuthModalEventData } from '@/utils/customEvents/@handlers/authModal/types'
 
-import { ModalWrapperProps } from './types'
+import type { ModalWrapperProps } from './types'
 
 export const ModalWrapper: React.FC<ModalWrapperProps> = ({
   dismissible,

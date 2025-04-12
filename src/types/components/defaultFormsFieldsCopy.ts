@@ -1,5 +1,5 @@
-import { SelectInputCopy } from './selectInputCopy'
-import { TextInputCopy } from './textInputCopy'
+import type { SelectInputCopy } from './selectInputCopy'
+import type { TextInputCopy } from './textInputCopy'
 
 export interface DefaultFormsFieldsCopy {
   corporativeEmail: TextInputCopy

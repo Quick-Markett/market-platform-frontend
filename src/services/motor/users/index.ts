@@ -1,9 +1,9 @@
-import { AxiosInstance } from 'axios'
+import type { AxiosInstance } from 'axios'
 
-import { User } from '@/types/models/user'
-import { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
+import type { User } from '@/types/models/user'
+import type { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
 
-import { GetUserByEmailPayload, GetUserByIdPayload } from './types'
+import type { GetUserByEmailPayload, GetUserByIdPayload } from './types'
 
 export class Users {
   private instance: AxiosInstance

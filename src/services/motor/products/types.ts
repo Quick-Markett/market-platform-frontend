@@ -1,4 +1,4 @@
-import { Product } from '@/types/models/product'
+import type { Product } from '@/types/models/product'
 
 export interface GetProductByIdPayload {
   productId: number

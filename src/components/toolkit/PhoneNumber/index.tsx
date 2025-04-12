@@ -5,7 +5,7 @@ import { PhoneInput } from 'react-international-phone'
 
 import { FieldError } from './FieldError'
 import { FieldLabel } from './FieldLabel'
-import { PhoneNumberProps } from './types'
+import type { PhoneNumberProps } from './types'
 
 export const PhoneNumber: React.FC<PhoneNumberProps> = ({
   id,

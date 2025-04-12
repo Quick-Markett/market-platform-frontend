@@ -1,8 +1,8 @@
-import { PropsWithChildren, SetStateAction } from 'react'
+import type { PropsWithChildren, SetStateAction } from 'react'
 
-import { Category } from '@/types/models/category'
-import { Market } from '@/types/models/market'
-import { Product } from '@/types/models/product'
+import type { Category } from '@/types/models/category'
+import type { Market } from '@/types/models/market'
+import type { Product } from '@/types/models/product'
 
 export interface AdminContextProps {
   categories: Category[]

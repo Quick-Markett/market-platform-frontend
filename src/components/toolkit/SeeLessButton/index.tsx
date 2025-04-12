@@ -1,6 +1,6 @@
 'use client'
 
-import { SeeLessButtonProps } from './types'
+import type { SeeLessButtonProps } from './types'
 
 export const SeeLessButton: React.FC<SeeLessButtonProps> = ({
   elementId = null,

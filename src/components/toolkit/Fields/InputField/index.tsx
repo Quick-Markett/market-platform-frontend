@@ -1,9 +1,8 @@
 import { forwardRef } from 'react'
 
 import { Input } from '../../Input'
-// import { ErrorField } from '../ErrorField'
 import { LabelField } from '../LabelField'
-import { InputFieldProps } from './types'
+import type { InputFieldProps } from './types'
 
 export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   ({ id, label, errorMessage, required, variant, ...props }, ref) => {

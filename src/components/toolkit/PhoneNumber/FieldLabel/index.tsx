@@ -1,4 +1,4 @@
-import { FieldLabelProps } from './types'
+import type { FieldLabelProps } from './types'
 
 export const FieldLabel: React.FC<FieldLabelProps> = ({ id, label }) => {
   return label ? (

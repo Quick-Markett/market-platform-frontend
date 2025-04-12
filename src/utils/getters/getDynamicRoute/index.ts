@@ -1,4 +1,4 @@
-import { GetDynamicRouteProps } from './types'
+import type { GetDynamicRouteProps } from './types'
 
 export const getDynamicRoute = ({
   locale,

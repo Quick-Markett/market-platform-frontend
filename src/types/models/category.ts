@@ -1,4 +1,4 @@
-import { Market } from './market'
+import type { Market } from './market'
 
 export interface Category {
   created_at: string

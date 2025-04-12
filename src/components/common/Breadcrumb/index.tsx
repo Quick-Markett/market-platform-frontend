@@ -5,7 +5,7 @@ import { IoHomeOutline } from 'react-icons/io5'
 
 import { Anchor } from '@/components/toolkit/Anchor'
 
-import { BreadcrumbProps } from './types'
+import type { BreadcrumbProps } from './types'
 import { breadcrumbVariants } from './variance'
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({

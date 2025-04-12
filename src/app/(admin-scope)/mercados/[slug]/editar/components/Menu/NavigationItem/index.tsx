@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useAdminContext } from '@/contexts/AdminProvider'
 
 import { DropdownArrow } from '../icons/DropdownArrow'
-import { NavigationItemProps } from './types'
+import type { NavigationItemProps } from './types'
 
 export const NavigationItem: React.FC<NavigationItemProps> = ({
   copy,

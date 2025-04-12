@@ -1,10 +1,10 @@
-import { AxiosInstance } from 'axios'
+import type { AxiosInstance } from 'axios'
 
-import { OrderItem } from '@/types/models/orderItem'
-import { Product } from '@/types/models/product'
-import { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
+import type { OrderItem } from '@/types/models/orderItem'
+import type { Product } from '@/types/models/product'
+import type { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
 
-import {
+import type {
   CreateOrderItemPayload,
   DeleteOrderItemPayload,
   GetOrderItemByIdPayload,

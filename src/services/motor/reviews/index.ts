@@ -1,9 +1,9 @@
-import { AxiosInstance } from 'axios'
+import type { AxiosInstance } from 'axios'
 
-import { Review } from '@/types/models/review'
-import { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
+import type { Review } from '@/types/models/review'
+import type { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
 
-import { CreateReviewPayload, GetReviewByIdPayload } from './types'
+import type { CreateReviewPayload, GetReviewByIdPayload } from './types'
 
 export class Reviews {
   private instance: AxiosInstance

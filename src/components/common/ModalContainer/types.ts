@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 
 export interface ModalContainerProps extends PropsWithChildren {
   setShowMenu(arg: boolean): void

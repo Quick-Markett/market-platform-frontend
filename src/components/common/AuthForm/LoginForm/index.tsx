@@ -3,7 +3,8 @@
 import { signIn } from 'next-auth/react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import type { SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import { Button } from '@/components/toolkit/Button'
@@ -15,7 +16,7 @@ import { handleCloseAuthModal } from '@/utils/customEvents/@handlers/authModal/h
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { loginFormSchema } from './schema'
-import { LoginFormInputs, LoginFormProps } from './types'
+import type { LoginFormInputs, LoginFormProps } from './types'
 
 export const LoginForm: React.FC<LoginFormProps> = ({
   setActiveStep,

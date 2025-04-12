@@ -1,4 +1,4 @@
-import { ErrorFieldProps } from './types'
+import type { ErrorFieldProps } from './types'
 
 export const ErrorField: React.FC<ErrorFieldProps> = ({
   errorMessage,

@@ -1,4 +1,4 @@
-import { OpenGraphType } from 'next/dist/lib/metadata/types/opengraph-types'
+import type { OpenGraphType } from 'next/dist/lib/metadata/types/opengraph-types'
 
 export interface GetMetaDataProps {
   description: string

@@ -1,7 +1,7 @@
 import { Anchor } from '@/components/toolkit/Anchor'
 import { formatCurrency } from '@/utils/getters/getFormattedCurrency'
 
-import { OfferCardProps } from './types'
+import type { OfferCardProps } from './types'
 
 export const OfferCard: React.FC<OfferCardProps> = ({ offer }) => {
   return (

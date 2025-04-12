@@ -1,6 +1,6 @@
 import { ErrorSignal } from '@/assets/common/ErrorSignal'
 
-import { FieldErrorProps } from './types'
+import type { FieldErrorProps } from './types'
 
 export const FieldError: React.FC<FieldErrorProps> = ({
   error,

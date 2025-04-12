@@ -5,7 +5,7 @@ import { getUserSession } from '@/utils/auth/getUserSession'
 
 import { FavouriteMarket } from './FavouriteMarket'
 import { MarketActions } from './MarketActions'
-import { HeaderProps } from './types'
+import type { HeaderProps } from './types'
 
 export const Header: React.FC<HeaderProps> = async ({ market }) => {
   const user = await getUserSession()

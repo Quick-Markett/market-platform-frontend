@@ -1,7 +1,7 @@
 import { Anchor } from '@/components/toolkit/Anchor'
 import { formatCurrency } from '@/utils/getters/getFormattedCurrency'
 
-import { MarketCardProps } from './types'
+import type { MarketCardProps } from './types'
 
 export const MarketCard: React.FC<MarketCardProps> = ({ market }) => {
   return (

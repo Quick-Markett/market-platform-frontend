@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers'
 
-import { SetAuthFormCookiesDataProps } from './types'
+import type { SetAuthFormCookiesDataProps } from './types'
 
 export const setAuthFormCookiesData = async (
   props: SetAuthFormCookiesDataProps

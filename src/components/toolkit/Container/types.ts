@@ -1,4 +1,5 @@
-import React, { HTMLProps, PropsWithChildren } from 'react'
+import type { HTMLProps, PropsWithChildren } from 'react'
+import type React from 'react'
 
 type ClassName = HTMLProps<HTMLElement>['className']
 

@@ -1,4 +1,4 @@
-import { OrderItem } from '@/types/models/orderItem'
+import type { OrderItem } from '@/types/models/orderItem'
 
 export interface GetOrderItemByIdPayload {
   orderItemId: number

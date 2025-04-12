@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
-import { UseRefreshRouteProps } from './types'
+import type { UseRefreshRouteProps } from './types'
 
 const useRefreshRoute = ({
   onRefresh,

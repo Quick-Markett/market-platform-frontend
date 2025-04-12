@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { FOOTER_LINKS } from './data'
-import { FooterLinkProps, FooterSectionProps } from './types'
+import type { FooterLinkProps, FooterSectionProps } from './types'
 
 export const Footer: React.FC = () => {
   return (

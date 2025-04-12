@@ -1,6 +1,6 @@
 'use client'
 
-import { SeeMoreButtonProps } from './types'
+import type { SeeMoreButtonProps } from './types'
 
 const SeeMoreButton: React.FC<SeeMoreButtonProps> = ({
   onClick,

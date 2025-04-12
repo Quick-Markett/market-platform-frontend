@@ -1,4 +1,4 @@
-import { AuthFormCustomSteps } from '@/components/common/AuthForm/types'
+import type { AuthFormCustomSteps } from '@/components/common/AuthForm/types'
 
 export interface SetAuthFormCookiesDataProps {
   cookiesAuthInitialStep?: AuthFormCustomSteps

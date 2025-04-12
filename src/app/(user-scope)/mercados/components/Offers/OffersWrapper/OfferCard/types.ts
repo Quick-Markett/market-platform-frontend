@@ -1,4 +1,4 @@
-import { OfferProductProps } from '../types'
+import type { OfferProductProps } from '../types'
 
 export interface OfferCardProps {
   offer: OfferProductProps

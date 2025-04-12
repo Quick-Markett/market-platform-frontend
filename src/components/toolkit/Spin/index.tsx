@@ -1,4 +1,4 @@
-import { SpinProps } from './types'
+import type { SpinProps } from './types'
 import { spinIconVariants, spinVariants } from './variance'
 
 export const Spin: React.FC<SpinProps> = ({ size, variant, className }) => {

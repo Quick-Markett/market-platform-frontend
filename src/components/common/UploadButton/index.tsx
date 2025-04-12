@@ -1,6 +1,6 @@
 import { Button } from '@/components/toolkit/Button'
 
-import { UploadButtonProps } from './types'
+import type { UploadButtonProps } from './types'
 
 export const UploadButton: React.FC<UploadButtonProps> = ({
   setImagePath,

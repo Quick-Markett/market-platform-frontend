@@ -4,7 +4,7 @@ import { useLockBodyScroll } from '@/hooks/useLockBodyScroll'
 import { Transition } from '@headlessui/react'
 
 import { XMark } from '../icons/XMark'
-import { DrawerProps } from './types'
+import type { DrawerProps } from './types'
 
 export const Drawer: React.FC<DrawerProps> = ({
   children,

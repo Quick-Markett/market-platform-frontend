@@ -1,4 +1,4 @@
-import { StepProps } from '@/components/toolkit/Stepper/types'
+import type { StepProps } from '@/components/toolkit/Stepper/types'
 
 export type AuthFormCustomSteps = 'login' | 'signUp' | 'feedback'
 

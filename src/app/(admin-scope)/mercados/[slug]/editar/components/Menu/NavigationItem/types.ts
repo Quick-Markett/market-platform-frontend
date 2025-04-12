@@ -1,4 +1,4 @@
-import { AdminTabs } from '@/contexts/AdminProvider/types'
+import type { AdminTabs } from '@/contexts/AdminProvider/types'
 
 export interface NavigationItemProps {
   copy: NavigationItem

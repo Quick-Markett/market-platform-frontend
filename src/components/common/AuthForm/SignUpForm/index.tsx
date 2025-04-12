@@ -4,7 +4,8 @@ import { signIn } from 'next-auth/react'
 import Error from 'next/error'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import type { SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import { Button } from '@/components/toolkit/Button'
@@ -15,7 +16,11 @@ import { handleCloseAuthModal } from '@/utils/customEvents/@handlers/authModal/h
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { signUpFormSchema } from './schema'
-import { OnSubmitPayload, SignUpFormInputs, SignUpFormProps } from './types'
+import type {
+  OnSubmitPayload,
+  SignUpFormInputs,
+  SignUpFormProps
+} from './types'
 
 export const SignUpForm: React.FC<SignUpFormProps> = ({
   setActiveStep,

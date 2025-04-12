@@ -1,6 +1,6 @@
-import { SetStateAction } from 'react'
+import type { SetStateAction } from 'react'
 
-import { DefaultFormFields } from '@/constants/forms/default-forms-fields'
+import type { DefaultFormFields } from '@/constants/forms/default-forms-fields'
 
 export interface RegisterMarketFormInputs
   extends Pick<

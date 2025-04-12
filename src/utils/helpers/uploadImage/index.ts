@@ -1,4 +1,4 @@
-import { uploadImageData } from './types'
+import type { uploadImageData } from './types'
 
 export const uploadImage = async ({ imagePath }: uploadImageData) => {
   const request = await fetch('/api/cloudinary', {

@@ -1,5 +1,5 @@
 import { cva } from 'class-variance-authority'
-import { ClassValue } from 'class-variance-authority/dist/types'
+import type { ClassValue } from 'class-variance-authority/dist/types'
 
 export const buttonVariants = cva<ClassValue>(
   [
