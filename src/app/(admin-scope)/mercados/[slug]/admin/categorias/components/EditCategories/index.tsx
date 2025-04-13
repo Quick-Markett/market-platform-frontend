@@ -16,17 +16,20 @@ export const EditCategories: React.FC = async () => {
   return (
     <Container
       as="section"
-      className="flex w-full flex-col gap-6 lg:gap-12"
+      className="!mx-0 flex w-full flex-col gap-6 lg:gap-12"
       data-cid="admin-tab"
-      wrapperClassName="pt-12 lg:pt-20 relative z-40"
+      wrapperClassName="relative z-40 w-full"
     >
       <div className="flex w-full flex-col gap-6">
         <h2 className="text-xl font-medium lg:text-2xl">
           Editar Categorias do Mercado
         </h2>
-        <p>token: {token}</p>
         <div className="flex flex-col gap-3 rounded-md border border-neutral-200 bg-white p-8">
-          {hasResults ? <AvailableCategories /> : <NoResults />}
+          {hasResults ? (
+            <AvailableCategories categories={categories} />
+          ) : (
+            <NoResults />
+          )}
         </div>
       </div>
     </Container>

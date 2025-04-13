@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 import { Button } from '@/components/toolkit/Button'
 import { InputField } from '@/components/toolkit/Fields/InputField'
 import { Modal } from '@/components/toolkit/Modal'
+import { useAdminContext } from '@/contexts/AdminProvider'
 import { useEventListener } from '@/hooks/useEventListener'
 import { useUserSession } from '@/hooks/useUserSession'
 import { convertToSlug } from '@/utils/helpers/convertToSlug'
@@ -19,6 +20,7 @@ import type { CreateCategoryFormData, CreateCategoryFormInputs } from './types'
 
 export const CreateCategoryModal: React.FC = () => {
   const { token } = useUserSession()
+  const { marketData } = useAdminContext()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const formMethods = useForm<CreateCategoryFormInputs>({
@@ -43,6 +45,7 @@ export const CreateCategoryModal: React.FC = () => {
         token,
         payload: {
           description,
+          market_id: marketData.id,
           name,
           slug
         }

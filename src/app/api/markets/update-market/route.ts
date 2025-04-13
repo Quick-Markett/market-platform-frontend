@@ -20,7 +20,7 @@ export const PUT = async (req: NextRequest) => {
 
     return NextResponse.json(
       { message: updateMarketErr.message },
-      { status: updateMarketErr.statusCode }
+      { status: 500 }
     )
   }
 }

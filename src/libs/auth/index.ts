@@ -21,12 +21,10 @@ export const authOptions: AuthOptions = {
         token.userData = user
       }
 
-      if (trigger === 'update') {
-        if (session) {
-          token.userData = {
-            ...token,
-            ...session
-          }
+      if (trigger === 'update' && session) {
+        token.userData = {
+          ...token,
+          ...session.user
         }
       }
 
@@ -51,6 +49,7 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
-    maxAge: 5 * 24 * 60 * 60
+    maxAge: 24 * 60 * 60,
+    updateAge: 24 * 60 * 60
   }
 }

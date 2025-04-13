@@ -3,6 +3,9 @@
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
+import { Anchor } from '@/components/toolkit/Anchor'
+import { useAdminContext } from '@/contexts/AdminProvider'
+
 import { DropdownArrow } from '../icons/DropdownArrow'
 import type { NavigationItemProps } from './types'
 
@@ -10,6 +13,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
   copy,
   handleToggleSideMenu
 }) => {
+  const { marketData } = useAdminContext()
   const [isQuestionOpen, setIsQuestionOpen] = useState<boolean>(false)
 
   const pathname = usePathname()
@@ -51,11 +55,13 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
               className="w-full"
               key={`${label}-${index}`}
             >
-              <div
+              <Anchor
                 className={`flex w-full border-neutral-100 py-2 pl-2 transition-all duration-300 ${currentPath === id ? 'border border-yellow-500 bg-yellow-50 text-yellow-700' : 'border-b bg-transparent text-neutral-600'}`}
+                href={`/mercados/${marketData.slug}/admin/${id}`}
+                variant="custom"
               >
                 {label}
-              </div>
+              </Anchor>
             </li>
           ))}
         </ul>

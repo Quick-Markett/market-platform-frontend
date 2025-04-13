@@ -17,9 +17,11 @@ const AdminScopeLayout: React.FC<AdminScopeLayoutProps> = async ({
 
   return (
     <AdminContextProvider market={market}>
-      <main className="relative min-h-[70vh] bg-neutral-50 pb-12 pt-8 lg:pb-16">
+      <main className="relative flex min-h-[70vh] gap-12 bg-neutral-50 pt-8 lg:pt-0 2xl:gap-16">
         <Menu />
-        {children}
+        <section className="flex w-full justify-start py-4 pr-8 lg:py-8">
+          {children}
+        </section>
         <CreateCategoryModal />
       </main>
     </AdminContextProvider>

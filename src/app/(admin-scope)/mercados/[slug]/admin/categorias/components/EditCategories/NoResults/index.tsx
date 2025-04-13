@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/toolkit/Button'
 import { handleOpenCreateCategoryModal } from '@/utils/customEvents/@handlers/authModal/handleOpenCreateCategoryModal'
 

@@ -6,6 +6,7 @@ import { NAVBAR_LINKS } from './icons/data'
 import { MagnifyingGlass } from './icons/MagnifyingGlass'
 import { Shop } from './icons/Shop'
 import { LoginButton } from './LoginButton'
+import { Logout } from './Logout'
 
 export const Navbar: React.FC = async () => {
   const session = await getUserSession()
@@ -44,6 +45,7 @@ export const Navbar: React.FC = async () => {
             <div className="ml-2 flex items-center gap-4 lg:gap-6">
               <Shop className="h-5 w-5 cursor-pointer text-neutral-700 transition-all duration-300 hover:brightness-125" />
               <Account className="h-5 w-5 cursor-pointer text-neutral-700 transition-all duration-300 hover:brightness-125" />
+              <Logout />
             </div>
           ) : (
             <LoginButton />
