@@ -1,10 +1,11 @@
+import type { Category } from '@/types/models/category'
 import { triggerCustomEvent } from '@/utils/customEvents/triggerCustomEvent'
-
-import type { HandleOpenEditCategoryModalProps } from './types'
 
 export const handleOpenEditCategoryModal = ({
   category
-}: HandleOpenEditCategoryModalProps) => {
+}: {
+  category: Category
+}) => {
   triggerCustomEvent({
     eventName: 'edit-category',
     data: {

@@ -5,7 +5,7 @@ import { NavigationItem } from './NavigationItem'
 
 export const DesktopMenu: React.FC = () => {
   return (
-    <div className="invisible-scrollbar overflow-y-scrool relative w-full max-w-[223%] bg-neutral-100 pt-12 lg:pt-8 2xl:max-w-[17.5%]">
+    <div className="invisible-scrollbar overflow-y-scrool relative w-full bg-white pt-12 lg:max-w-[30%] lg:pt-8 xl:max-w-[26.7%] 2xl:max-w-[17.5%]">
       <div className="flex flex-col lg:px-6">
         {NAVIGATION_LIST.map((navigationItem, index) => (
           <NavigationItem

@@ -1,5 +1,6 @@
 import type { AxiosInstance } from 'axios'
 
+import { instanceMotor } from '@/instances/instanceMotor'
 import type { Product } from '@/types/models/product'
 import type { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
 
@@ -43,11 +44,18 @@ export class Products {
   }
 
   getMarketProducts = async ({
-    marketId
+    slug
   }: GetMarketProductsPayload): Promise<ServiceRequestResponse<Product[]>> => {
     try {
+      const { data: marketData, error } =
+        await instanceMotor.markets.getMarketBySlug({ slug })
+
+      if (error) {
+        throw new Error(error)
+      }
+
       const { data, status } = await this.instance.get(
-        `/products/get-market-products/${marketId.toString()}`
+        `/products/get-market-products/${marketData.id.toString()}`
       )
 
       if (status !== 200) {

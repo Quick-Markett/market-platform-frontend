@@ -9,10 +9,10 @@ export const AvailableCategories: React.FC<AvailableCategoriesProps> = ({
   categories
 }) => {
   return (
-    <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div className="3xl:grid-cols-6 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
       {categories.map((category, index: number) => (
         <Button
-          className="flex w-full max-w-[320px] items-center gap-4 rounded-sm border-l border-yellow-100 px-3 py-1 transition-all duration-300 hover:border-yellow-300"
+          className="flex w-full items-center gap-3 rounded-md border border-l border-neutral-200 bg-white px-5 py-3.5 transition-all duration-300 hover:bg-[#fdfdfd]"
           key={`${category.name}-${index}`}
           variant="custom"
         >
@@ -20,8 +20,12 @@ export const AvailableCategories: React.FC<AvailableCategoriesProps> = ({
             <CategoryItem className="h-6 w-6 text-neutral-700" />
           </figure>
           <article className="flex w-full flex-1 flex-col items-start">
-            <p className="text-base font-medium">{category.name}</p>
-            <p className="text-sm text-neutral-500">{category.description}</p>
+            <p className="line-clamp-1 text-base font-medium">
+              {category.name}
+            </p>
+            <p className="line-clamp-1 text-sm text-neutral-500">
+              {category.description}
+            </p>
           </article>
         </Button>
       ))}

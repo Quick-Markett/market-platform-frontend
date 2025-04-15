@@ -2,27 +2,22 @@
 
 import { Button } from '@/components/toolkit/Button'
 import { Container } from '@/components/toolkit/Container'
-import { useGetAllCategories } from '@/hooks/swr/useGetAllCategories'
-import { useUserSession } from '@/hooks/useUserSession'
-import { handleOpenCreateCategoryModal } from '@/utils/customEvents/@handlers/categories/handleOpenCreateCategoryModal'
+import { useGetAllProducts } from '@/hooks/swr/useGetAllProducts'
+import { handleOpenCreateProductModal } from '@/utils/customEvents/@handlers/products/handleOpenCreateProductModal'
 
-import { AvailableCategories } from './AvailableCategories'
 import { NoResults } from './NoResults'
+import type { EditProductsProps } from './types'
 
-export const EditCategories: React.FC = () => {
-  const { token } = useUserSession()
+export const EditProducts: React.FC<EditProductsProps> = async ({ slug }) => {
+  const { allProducts, isLoading } = useGetAllProducts({ slug })
 
-  const { allCategories, isLoading } = useGetAllCategories({
-    payload: token
-  })
-
-  const hasResults = !isLoading && allCategories?.length > 0
+  const hasResults = !isLoading && allProducts?.length > 0
 
   return (
     <Container
       as="section"
       className="!mx-0 flex w-full !max-w-full flex-col gap-6 lg:gap-12"
-      data-cid="categories-admin-tab"
+      data-cid="products-admin-tab"
       wrapperClassName="relative z-40 w-full"
     >
       <div className="flex w-full flex-col gap-6">
@@ -32,13 +27,13 @@ export const EditCategories: React.FC = () => {
           </h2>
           <Button
             className="w-auto md:text-sm"
-            onClick={() => handleOpenCreateCategoryModal()}
+            onClick={() => handleOpenCreateProductModal()}
             variant="primary"
           >
             Adicionar mais categorias
           </Button>
         </div>
-        {hasResults ? <AvailableCategories categories={allCategories} /> : null}
+        {hasResults ? <p>Produtos</p> : null}
         {!isLoading && !hasResults && <NoResults />}
       </div>
     </Container>

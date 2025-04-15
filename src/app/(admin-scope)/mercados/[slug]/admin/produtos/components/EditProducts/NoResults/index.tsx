@@ -2,7 +2,7 @@
 
 import { WebDesignXmarkPapertray } from '@/assets/common/WebDesignXmarkPapertray'
 import { Button } from '@/components/toolkit/Button'
-import { handleOpenCreateCategoryModal } from '@/utils/customEvents/@handlers/categories/handleOpenCreateCategoryModal'
+import { handleOpenCreateProductModal } from '@/utils/customEvents/@handlers/products/handleOpenCreateProductModal'
 
 export const NoResults: React.FC = () => {
   return (
@@ -10,11 +10,11 @@ export const NoResults: React.FC = () => {
       <div className="my-8 flex w-full flex-col items-center justify-center gap-4 text-center">
         <WebDesignXmarkPapertray className="w-8 text-neutral-500" />
         <p className="text-sm lg:text-base">
-          Ops... parece que você ainda não tem nenhuma categoria criada!
+          Ops... parece que você ainda não tem nenhum produto criado!
         </p>
         <Button
           className="mt-4 md:text-sm"
-          onClick={() => handleOpenCreateCategoryModal()}
+          onClick={() => handleOpenCreateProductModal()}
           variant="primaryOutline"
         >
           Quero criar uma

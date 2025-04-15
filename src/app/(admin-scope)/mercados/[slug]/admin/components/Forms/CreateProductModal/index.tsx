@@ -15,16 +15,16 @@ import { useUserSession } from '@/hooks/useUserSession'
 import { convertToSlug } from '@/utils/helpers/convertToSlug'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { createCategorySchema } from './schema'
-import type { CreateCategoryFormData, CreateCategoryFormInputs } from './types'
+import { createProductSchema } from './schema'
+import type { CreateProductFormData, CreateProductFormInputs } from './types'
 
 export const CreateCategoryModal: React.FC = () => {
   const { token } = useUserSession()
   const { marketData } = useAdminContext()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
-  const formMethods = useForm<CreateCategoryFormInputs>({
-    resolver: zodResolver(createCategorySchema())
+  const formMethods = useForm<CreateProductFormInputs>({
+    resolver: zodResolver(createProductSchema())
   })
 
   const {
@@ -34,14 +34,14 @@ export const CreateCategoryModal: React.FC = () => {
     formState: { isValidating, isSubmitting }
   } = formMethods
 
-  const onSubmit: SubmitHandler<CreateCategoryFormData> = async ({
+  const onSubmit: SubmitHandler<CreateProductFormData> = async ({
     description,
     name
   }) => {
     try {
       const slug = convertToSlug({ text: name })
 
-      const { status } = await axios.post('/api/categories/create-category', {
+      const { status } = await axios.post('/api/products/create-product', {
         token,
         payload: {
           description,
@@ -55,18 +55,18 @@ export const CreateCategoryModal: React.FC = () => {
       setValue('name', '')
 
       if (status !== 201) {
-        toast.error('Ops.. houve um erro ao criar a categoria!')
+        toast.error('Ops.. houve um erro ao adicionar o produto!')
         return
       }
 
-      toast.success('Categoria criada com sucesso!')
+      toast.success('Produto adicionado com sucesso!')
       setIsModalOpen(false)
     } catch (submitCreateMarketFormErr) {
       console.error(submitCreateMarketFormErr)
     }
   }
 
-  useEventListener('create-category', ({ action }) => {
+  useEventListener('create-product', ({ action }) => {
     switch (action) {
       case 'open': {
         setIsModalOpen(true)
@@ -84,18 +84,18 @@ export const CreateCategoryModal: React.FC = () => {
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 rounded-md bg-white px-8 py-16 pb-12">
         <article className="flex w-full flex-col gap-2">
           <h2 className="text-left text-2xl font-semibold lg:text-3xl">
-            Criar Categoria
+            Adicionar Produto
           </h2>
           <p className="text-left text-sm text-neutral-500 lg:text-base">
-            Crie categorias para organizar as prateleiras de seu mercado virtual
-            e assim facilitar para que seu cliente encontre os produtos!
+            Adicione produtos para preencher as suas categorias e atrair mais
+            clientes para o seu estabelecimento agora mesmo.
           </p>
         </article>
         <form id="register-market" onSubmit={handleSubmit(onSubmit)}>
           <section className="flex w-full flex-col gap-1">
             <InputField
               id="name"
-              label="Nome da Categoria"
+              label="Nome do Produto"
               maxLength={80}
               minLength={3}
               placeholder="Ex:. Limpeza, Frios, Utensílios..."
@@ -106,10 +106,10 @@ export const CreateCategoryModal: React.FC = () => {
             />
             <InputField
               id="description"
-              label="Descrição da categoria"
+              label="Descrição do Produto"
               maxLength={1200}
               minLength={4}
-              placeholder="O que um usuário poderá encontrar nessa categoria"
+              placeholder="Produto a qual usuário poderá adicionar em seu carrinho"
               spellCheck={false}
               {...register('description')}
               variant="secondary"
@@ -120,7 +120,7 @@ export const CreateCategoryModal: React.FC = () => {
               type="submit"
               variant="primary"
             >
-              Criar Categoria
+              Adicionar Produto
             </Button>
           </section>
         </form>
