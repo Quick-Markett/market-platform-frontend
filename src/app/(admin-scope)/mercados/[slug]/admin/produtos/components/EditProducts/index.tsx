@@ -8,7 +8,7 @@ import { handleOpenCreateProductModal } from '@/utils/customEvents/@handlers/pro
 import { NoResults } from './NoResults'
 import type { EditProductsProps } from './types'
 
-export const EditProducts: React.FC<EditProductsProps> = async ({ slug }) => {
+export const EditProducts: React.FC<EditProductsProps> = ({ slug }) => {
   const { allProducts, isLoading } = useGetAllProducts({ slug })
 
   const hasResults = !isLoading && allProducts?.length > 0

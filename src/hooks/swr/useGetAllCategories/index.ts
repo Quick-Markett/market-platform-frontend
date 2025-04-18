@@ -1,11 +1,10 @@
+import axios from 'axios'
 import useSWR from 'swr'
 
-import { instanceMotor } from '@/instances/instanceMotor'
-
 const fetcher = async ([_, payload]) => {
-  const { data } = await instanceMotor.categories.getMarketCategories({
-    token: payload.token
-  })
+  const { data } = await axios.get(
+    `/api/categories/get-market-categories?token=${payload}`
+  )
 
   return data
 }

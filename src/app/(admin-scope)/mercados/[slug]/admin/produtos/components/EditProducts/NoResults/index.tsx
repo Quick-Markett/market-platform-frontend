@@ -17,7 +17,7 @@ export const NoResults: React.FC = () => {
           onClick={() => handleOpenCreateProductModal()}
           variant="primaryOutline"
         >
-          Quero criar uma
+          Adicionar Produtos
         </Button>
       </div>
     </div>

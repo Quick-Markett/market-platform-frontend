@@ -9,6 +9,7 @@ export interface Product {
   product_description: string
   product_image: string
   product_name: string
+  slug: string
   stock: number
   unit_price: number
   updated_at: string

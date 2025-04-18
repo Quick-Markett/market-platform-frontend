@@ -1,6 +1,6 @@
+import axios from 'axios'
 import useSWR from 'swr'
 
-import { instanceMotor } from '@/instances/instanceMotor'
 import type { swrHookFetcherParams } from '@/types/swr/swrHookFetcherParams'
 
 import type { useGetAllProductsData } from './types'
@@ -9,9 +9,9 @@ const fetcher = async ([
   _,
   payload
 ]: swrHookFetcherParams<useGetAllProductsData>) => {
-  const { data } = await instanceMotor.products.getMarketProducts({
-    slug: payload.slug
-  })
+  const { data } = await axios.get(
+    `/api/products/get-market-products?slug=${payload.slug}`
+  )
 
   return data
 }

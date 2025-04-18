@@ -64,7 +64,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         email,
         password,
         redirect: true,
-        callbackUrl: undefined,
+        callbackUrl: window.location.href,
         action: 'signIn'
       })
 
@@ -86,7 +86,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({
       ...prev,
       google: true
     }))
-    signIn('google')
+    signIn('google', {
+      callbackUrl: window.location.href
+    })
   }
 
   useEffect(() => {

@@ -17,7 +17,7 @@ export interface GetProductByIdPayload {
 export interface CreateProductPayload {
   payload: Pick<
     Product,
-    | 'market'
+    | 'slug'
     | 'market_id'
     | 'product_description'
     | 'product_image'

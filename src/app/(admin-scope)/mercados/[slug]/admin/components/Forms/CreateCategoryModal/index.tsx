@@ -20,9 +20,9 @@ import { createCategorySchema } from './schema'
 import type { CreateCategoryFormData, CreateCategoryFormInputs } from './types'
 
 export const CreateCategoryModal: React.FC = () => {
-  const { token } = useUserSession()
+  const { user } = useUserSession()
   const { marketData } = useAdminContext()
-  const { mutate } = useGetAllCategories({ payload: token })
+  const { mutate } = useGetAllCategories({ payload: user.token })
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
@@ -45,7 +45,7 @@ export const CreateCategoryModal: React.FC = () => {
       const slug = convertToSlug({ text: name })
 
       const { status } = await axios.post('/api/categories/create-category', {
-        token,
+        token: user.token,
         payload: {
           description,
           market_id: marketData.id,

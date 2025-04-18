@@ -4,6 +4,13 @@ import { getUserSession } from '@/utils/auth/getUserSession'
 export const googleOptions = {
   clientId: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  authorization: {
+    params: {
+      prompt: 'consent',
+      access_type: 'offline',
+      response_type: 'code'
+    }
+  },
   async profile(profile) {
     const user = await getUserSession()
 
@@ -11,15 +18,14 @@ export const googleOptions = {
 
     if (!user) {
       try {
-        const { data: userData, error } = await auth.google.loginUser({
+        const { data, error } = await auth.google.loginUser({
           googleId
         })
 
-        if (userData && !error) {
+        if (data && !error) {
           return {
-            ...userData,
-            id: userData.user.id,
-            token: userData.token
+            ...data.user,
+            token: data.token
           }
         }
 
@@ -42,8 +48,7 @@ export const googleOptions = {
 
           if (loginData && !loginError) {
             return {
-              ...loginData,
-              id: loginData.user.id,
+              ...loginData.user,
               token: loginData.token
             }
           }

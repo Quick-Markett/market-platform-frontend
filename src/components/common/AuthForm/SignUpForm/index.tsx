@@ -71,7 +71,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         email,
         password,
         redirect: true,
-        callbackUrl: undefined,
+        callbackUrl: window.location.href,
         action: 'signUp'
       })
 
@@ -96,7 +96,9 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
       ...prev,
       google: true
     }))
-    signIn('google')
+    signIn('google', {
+      callbackUrl: window.location.href
+    })
   }
 
   useEffect(() => {

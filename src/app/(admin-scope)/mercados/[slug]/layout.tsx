@@ -2,6 +2,7 @@ import { AdminContextProvider } from '@/contexts/AdminProvider'
 import { instanceMotor } from '@/instances/instanceMotor'
 
 import { CreateCategoryModal } from './admin/components/Forms/CreateCategoryModal'
+import { CreateProductModal } from './admin/components/Forms/CreateProductModal'
 import { Menu } from './admin/components/Menu'
 import type { AdminScopeLayoutProps } from './types'
 
@@ -23,6 +24,7 @@ const AdminScopeLayout: React.FC<AdminScopeLayoutProps> = async ({
           {children}
         </section>
         <CreateCategoryModal />
+        <CreateProductModal />
       </main>
     </AdminContextProvider>
   )

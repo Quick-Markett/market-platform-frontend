@@ -8,12 +8,13 @@ import { handleOpenCreateCategoryModal } from '@/utils/customEvents/@handlers/ca
 
 import { AvailableCategories } from './AvailableCategories'
 import { NoResults } from './NoResults'
+import { SkeletonAvailableCategories } from './SkeletonAvailableCategories'
 
 export const EditCategories: React.FC = () => {
-  const { token } = useUserSession()
+  const { user } = useUserSession()
 
   const { allCategories, isLoading } = useGetAllCategories({
-    payload: token
+    payload: user.token
   })
 
   const hasResults = !isLoading && allCategories?.length > 0
@@ -40,6 +41,7 @@ export const EditCategories: React.FC = () => {
         </div>
         {hasResults ? <AvailableCategories categories={allCategories} /> : null}
         {!isLoading && !hasResults && <NoResults />}
+        {isLoading && <SkeletonAvailableCategories />}
       </div>
     </Container>
   )

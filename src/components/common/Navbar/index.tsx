@@ -41,7 +41,7 @@ export const Navbar: React.FC = async () => {
               type="text"
             />
           </div>
-          {session?.user ? (
+          {session ? (
             <div className="ml-2 flex items-center gap-4 lg:gap-6">
               <Shop className="h-5 w-5 cursor-pointer text-neutral-700 transition-all duration-300 hover:brightness-125" />
               <Account className="h-5 w-5 cursor-pointer text-neutral-700 transition-all duration-300 hover:brightness-125" />
