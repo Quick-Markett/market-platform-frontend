@@ -1,5 +1,15 @@
 import type { Product } from '@/types/models/product'
 
+export type ProductFilter = keyof Omit<Product, 'id'>
+
+export type ProductFilters = Partial<Record<ProductFilter, string>>
+
+export interface ProductParamsFilters {
+  filters?: {
+    query?: string
+  } & ProductFilters
+}
+
 export interface GetProductByIdPayload {
   productId: number
 }
@@ -7,7 +17,7 @@ export interface GetProductByIdPayload {
 export interface CreateProductPayload {
   payload: Pick<
     Product,
-    | 'market'
+    | 'slug'
     | 'market_id'
     | 'product_description'
     | 'product_image'
@@ -19,7 +29,7 @@ export interface CreateProductPayload {
 }
 
 export interface GetMarketProductsPayload {
-  marketId: number
+  slug: string
 }
 
 export interface UpdateProductByIdPayload extends GetProductByIdPayload {

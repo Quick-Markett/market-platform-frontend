@@ -20,7 +20,7 @@ export const POST = async (req: NextRequest) => {
 
     return NextResponse.json(
       { message: createCategoryErr.message },
-      { status: createCategoryErr.statusCode }
+      { status: 500 }
     )
   }
 }

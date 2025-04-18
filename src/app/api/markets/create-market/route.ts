@@ -20,7 +20,7 @@ export const POST = async (req: NextRequest) => {
 
     return NextResponse.json(
       { message: createMarketErr.message },
-      { status: createMarketErr.statusCode }
+      { status: 500 }
     )
   }
 }

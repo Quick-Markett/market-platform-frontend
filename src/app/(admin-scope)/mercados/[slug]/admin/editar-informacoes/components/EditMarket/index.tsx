@@ -29,11 +29,17 @@ export const EditMarket: React.FC = () => {
   const [isUploadLoading, setIsUploadLoading] = useState<boolean>(false)
   const [logo, setLogo] = useState<string>(marketData.logo_url)
 
-  const { user } = useUserSession()
+  const { user, token } = useUserSession()
 
   const formMethods = useForm<RegisterMarketFormInputs>({
     resolver: zodResolver(updateMarketSchema()),
     defaultValues: {
+      address: marketData.address,
+      cep: marketData.zip_code,
+      city: marketData.city,
+      email: marketData.email,
+      marketDescription: marketData.description,
+      phone_number: marketData.phone_number,
       state: marketData.state
     }
   })
@@ -93,8 +99,8 @@ export const EditMarket: React.FC = () => {
     phone_number
   }) => {
     try {
-      const { status } = await axios.post('/api/markets/update-market', {
-        token: user.token,
+      const { status } = await axios.put('/api/markets/update-market', {
+        token,
         payload: {
           id: marketData.id,
           owner_id: user.id,
@@ -125,9 +131,9 @@ export const EditMarket: React.FC = () => {
   return (
     <Container
       as="section"
-      className="flex w-full flex-col gap-6 lg:gap-12"
+      className="!mx-0 flex w-full flex-col gap-6 lg:gap-12"
       data-cid="admin-tab"
-      wrapperClassName="pt-12 lg:pt-20 relative z-40"
+      wrapperClassName="relative z-40 w-full"
     >
       <div className="flex w-full flex-col gap-6">
         <h2 className="text-xl font-medium lg:text-2xl">

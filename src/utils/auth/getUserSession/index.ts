@@ -2,11 +2,10 @@
 import { getServerSession } from 'next-auth'
 
 import { authOptions } from '@/libs/auth'
+import type { User } from '@/types/models/user'
 
-import type { GetUserSessionResponse } from './types'
-
-export const getUserSession = async (): Promise<GetUserSessionResponse> => {
+export const getUserSession = async (): Promise<User> => {
   const session = await getServerSession(authOptions)
 
-  return session?.user as GetUserSessionResponse
+  return session?.user as unknown as User
 }

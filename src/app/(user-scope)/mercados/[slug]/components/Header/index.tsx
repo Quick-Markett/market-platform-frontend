@@ -8,7 +8,7 @@ import { MarketActions } from './MarketActions'
 import type { HeaderProps } from './types'
 
 export const Header: React.FC<HeaderProps> = async ({ market }) => {
-  const { user } = await getUserSession()
+  const session = await getUserSession()
 
   return (
     <Container
@@ -46,10 +46,10 @@ export const Header: React.FC<HeaderProps> = async ({ market }) => {
             </p>
           </article>
         </div>
-        {user?.id === market.owner?.id ? (
+        {session?.id === market.owner?.id ? (
           <MarketActions market={market} />
         ) : (
-          <FavouriteMarket isUserLoggedIn={!!user} />
+          <FavouriteMarket isUserLoggedIn={!!session} />
         )}
       </div>
     </Container>

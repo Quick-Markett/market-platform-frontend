@@ -122,6 +122,7 @@ export class Markets {
     payload
   }: UpdateMarketPayload): Promise<ServiceRequestResponse<void>> => {
     try {
+      console.log(`enviando ${token}`)
       const { data, status } = await this.instance.put(
         `/markets/${payload.id.toString()}`,
         payload,

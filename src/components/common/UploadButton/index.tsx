@@ -35,13 +35,13 @@ export const UploadButton: React.FC<UploadButtonProps> = ({
   return (
     <>
       <Button
-        className="cursor-pointer md:text-sm"
+        className="relative !cursor-pointer md:text-sm"
         isLoading={isLoading}
         variant="primary"
       >
         <input
           accept="image/*"
-          className="absolute left-1/2 top-1/2 z-30 mt-8 -translate-x-1/2 -translate-y-1/2 transform cursor-pointer pb-16 opacity-0"
+          className="absolute inset-0 -top-6 z-30 w-auto !cursor-pointer opacity-0"
           id="image"
           name="image"
           onChange={e => handleChangeImage(e)}

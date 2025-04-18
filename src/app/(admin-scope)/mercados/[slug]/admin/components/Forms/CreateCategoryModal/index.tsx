@@ -9,6 +9,8 @@ import { toast } from 'react-toastify'
 import { Button } from '@/components/toolkit/Button'
 import { InputField } from '@/components/toolkit/Fields/InputField'
 import { Modal } from '@/components/toolkit/Modal'
+import { useAdminContext } from '@/contexts/AdminProvider'
+import { useGetAllCategories } from '@/hooks/swr/useGetAllCategories'
 import { useEventListener } from '@/hooks/useEventListener'
 import { useUserSession } from '@/hooks/useUserSession'
 import { convertToSlug } from '@/utils/helpers/convertToSlug'
@@ -18,7 +20,10 @@ import { createCategorySchema } from './schema'
 import type { CreateCategoryFormData, CreateCategoryFormInputs } from './types'
 
 export const CreateCategoryModal: React.FC = () => {
-  const { token } = useUserSession()
+  const { user } = useUserSession()
+  const { marketData } = useAdminContext()
+  const { mutate } = useGetAllCategories({ payload: user.token })
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const formMethods = useForm<CreateCategoryFormInputs>({
@@ -40,9 +45,10 @@ export const CreateCategoryModal: React.FC = () => {
       const slug = convertToSlug({ text: name })
 
       const { status } = await axios.post('/api/categories/create-category', {
-        token,
+        token: user.token,
         payload: {
           description,
+          market_id: marketData.id,
           name,
           slug
         }
@@ -56,8 +62,10 @@ export const CreateCategoryModal: React.FC = () => {
         return
       }
 
-      toast.success('Categoria criada com sucesso!')
-      setIsModalOpen(false)
+      await mutate().then(() => {
+        toast.success('Categoria criada com sucesso!')
+        setIsModalOpen(false)
+      })
     } catch (submitCreateMarketFormErr) {
       console.error(submitCreateMarketFormErr)
     }
