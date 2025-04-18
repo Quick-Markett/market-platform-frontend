@@ -5,11 +5,12 @@ import { useState } from 'react'
 import { HamburgerButton } from '@/components/common/HamburgerButton'
 import { Anchor } from '@/components/toolkit/Anchor'
 
+import type { MenuProps } from '../types'
 import { NAVIGATION_LIST } from './data'
 import { Drawer } from './Drawer'
 import { NavigationItem } from './NavigationItem'
 
-export const MobileMenu: React.FC = () => {
+export const MobileMenu: React.FC<MenuProps> = ({ slug }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const handleToggleSideMenu = () => {

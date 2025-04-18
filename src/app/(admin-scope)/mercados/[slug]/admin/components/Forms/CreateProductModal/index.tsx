@@ -16,6 +16,7 @@ import { SelectField } from '@/components/toolkit/Fields/SelectField'
 import { Modal } from '@/components/toolkit/Modal'
 import { useAdminContext } from '@/contexts/AdminProvider'
 import { useGetAllCategories } from '@/hooks/swr/useGetAllCategories'
+import { useGetAllProducts } from '@/hooks/swr/useGetAllProducts'
 import { useEventListener } from '@/hooks/useEventListener'
 import { useUserSession } from '@/hooks/useUserSession'
 import { convertToSlug } from '@/utils/helpers/convertToSlug'
@@ -28,6 +29,7 @@ import type { CreateProductFormData, CreateProductFormInputs } from './types'
 export const CreateProductModal: React.FC = () => {
   const { user } = useUserSession()
   const { marketData } = useAdminContext()
+  const { mutate } = useGetAllProducts({ slug: marketData.slug })
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [productImage, setProductImage] = useState<string>('')
@@ -83,8 +85,10 @@ export const CreateProductModal: React.FC = () => {
         return
       }
 
-      toast.success('Produto adicionado com sucesso!')
-      setIsModalOpen(false)
+      await mutate().then(() => {
+        toast.success('Produto adicionado com sucesso!')
+        setIsModalOpen(false)
+      })
     } catch (submitCreateMarketFormErr) {
       console.error(submitCreateMarketFormErr)
     }

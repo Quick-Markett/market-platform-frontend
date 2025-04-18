@@ -7,8 +7,8 @@ import { useUserSession } from '@/hooks/useUserSession'
 import { handleOpenCreateCategoryModal } from '@/utils/customEvents/@handlers/categories/handleOpenCreateCategoryModal'
 
 import { AvailableCategories } from './AvailableCategories'
+import { SkeletonAvailableCategories } from './AvailableCategories/SkeletonAvailableCategories'
 import { NoResults } from './NoResults'
-import { SkeletonAvailableCategories } from './SkeletonAvailableCategories'
 
 export const EditCategories: React.FC = () => {
   const { user } = useUserSession()
