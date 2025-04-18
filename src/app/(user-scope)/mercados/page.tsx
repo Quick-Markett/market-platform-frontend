@@ -5,6 +5,7 @@ import { getMetaData } from '@/utils/seo/getMetaData'
 
 import { MarketOptions } from './components/MarketOptions'
 import { Offers } from './components/Offers'
+import { getUserSession } from '@/utils/auth/getUserSession'
 
 export async function generateMetadata() {
   return getMetaData({
@@ -16,10 +17,13 @@ export async function generateMetadata() {
 }
 
 const Page: NextPage = async () => {
+  const user = await getUserSession()
+
   return (
     <>
       <WelcomeBar />
       <main>
+        <p>teste: {JSON.stringify(user)}</p>
         <Offers />
         <MarketOptions />
       </main>
