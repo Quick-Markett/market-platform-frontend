@@ -16,32 +16,37 @@ export const authOptions: AuthOptions = {
   ],
   callbacks: {
     jwt: async ({ token, user, account }) => {
-      if (account && user) {
-        token.user = user
+      if (user && account) {
         const formattedUser = token.user as ExtendedUser
 
-        if (account.provider === 'google') {
-          const expiresAt = Number(account.expires_at)
+        if (token.provider === 'google') {
+          const expiresAt = Number(token.expires_at)
           if (!isNaN(expiresAt)) {
-            formattedUser.accessToken = account.access_token
-            formattedUser.refreshToken = account.refresh_token
+            formattedUser.accessToken = token.access_token as string
+            formattedUser.refreshToken = token.refresh_token as string
             formattedUser.accessTokenExpires = expiresAt * 1000
             formattedUser.provider = 'google'
           }
-        } else if (account.provider === 'credentials') {
-          formattedUser.accessToken = user.token
+        } else if (token.provider === 'credentials') {
+          formattedUser.accessToken = token.token as string
           formattedUser.accessTokenExpires = Date.now() + 24 * 60 * 60 * 1000
           formattedUser.provider = 'credentials'
         }
 
-        return token
+        return {
+          ...token,
+          user: token
+        }
       }
 
-      const updatedUser = token.user as ExtendedUser
+      const updatedUser = token as unknown as ExtendedUser
 
       if (updatedUser?.provider === 'google') {
         if (Date.now() < (updatedUser.accessTokenExpires ?? 0)) {
-          return token
+          return {
+            ...token,
+            user: token
+          }
         }
 
         return await refreshGoogleAccessToken(token.user)
@@ -49,7 +54,10 @@ export const authOptions: AuthOptions = {
 
       if (updatedUser?.provider === 'credentials') {
         if (Date.now() < (updatedUser.accessTokenExpires ?? 0)) {
-          return token
+          return {
+            ...token,
+            user: token
+          }
         }
 
         return {

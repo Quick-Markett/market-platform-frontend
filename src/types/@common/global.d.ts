@@ -27,4 +27,5 @@ interface ExtendedUser {
   name: string
   provider?: string
   refreshToken?: string
+  token?: string
 }
