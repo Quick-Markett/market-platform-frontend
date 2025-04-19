@@ -10,7 +10,7 @@ export const NAVIGATION_LIST: NavigationItem[] = [
       },
       {
         id: 'categorias',
-        label: 'Editar categorias'
+        label: 'Editar Categorias'
       },
       {
         id: 'produtos',

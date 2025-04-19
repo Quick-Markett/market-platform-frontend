@@ -20,7 +20,7 @@ export class SsoAuth {
       const ssoToken = await generateSsoToken(payload)
 
       const { data, status } = await this.instance.post(
-        `/users/sso/create-user`,
+        `/auth/sso/create-user`,
         {
           token: ssoToken
         }
@@ -56,7 +56,7 @@ export class SsoAuth {
       const ssoToken = await generateSsoToken(payload)
 
       const { data, status } = await this.instance.post(
-        `/users/sso/login-user`,
+        `/auth/sso/login-user`,
         {
           token: ssoToken
         }

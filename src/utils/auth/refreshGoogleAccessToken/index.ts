@@ -14,6 +14,8 @@ export async function refreshGoogleAccessToken(token) {
     return {
       ...token,
       token: refreshedTokens.id_token,
+      accessToken: refreshedTokens.access_token,
+      accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
       refreshToken: refreshedTokens.refresh_token ?? token.refreshToken
     }
   } catch (error) {

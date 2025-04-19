@@ -14,6 +14,9 @@ export interface CreateCategoryPayload {
   token: string
 }
 
-export interface UpdateCategoryPayload extends GetCategoryByIdPayload {}
+export interface UpdateCategoryPayload {
+  payload: Pick<Category, 'description' | 'name' | 'id'>
+  token: string
+}
 
 export interface DeleteCategoryPayload extends GetCategoryByIdPayload {}

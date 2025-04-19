@@ -112,13 +112,11 @@ export class Categories {
 
   updateCategory = async ({
     token,
-    categoryId
+    payload
   }: UpdateCategoryPayload): Promise<ServiceRequestResponse<void>> => {
     try {
-      console.log(`enviando ${token}`)
-
       const { data, status } = await this.instance.put(
-        `/categories/${categoryId.toString()}`,
+        `/categories/${payload.id.toString()}`,
         {
           headers: {
             Authorization: `Bearer ${token}`

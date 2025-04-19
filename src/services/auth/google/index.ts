@@ -22,7 +22,7 @@ export class GoogleAuth {
   ): Promise<ServiceRequestResponse<User>> => {
     try {
       const { data, status } = await this.instance.post(
-        `/users/google/create-user`,
+        `/auth/google/create-user`,
         payload
       )
 
@@ -47,7 +47,7 @@ export class GoogleAuth {
   ): Promise<ServiceRequestResponse<LoginUserResponse>> => {
     try {
       const { data, status } = await this.instance.post(
-        `/users/google/login-user`,
+        `/auth/google/login-user`,
         {
           google_id: payload.googleId
         }
@@ -79,7 +79,7 @@ export class GoogleAuth {
   }: UpdateUserData): Promise<ServiceRequestResponse<User>> => {
     try {
       const { data, status } = await this.instance.get(
-        `/users/google/update-user/${userId}/${googleId}`
+        `/auth/google/update-user/${userId}/${googleId}`
       )
 
       if (status !== 200) {
