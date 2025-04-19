@@ -46,8 +46,11 @@ export class GoogleAuth {
     payload: LoginUserData
   ): Promise<ServiceRequestResponse<LoginUserResponse>> => {
     try {
-      const { data, status } = await this.instance.get(
-        `/users/google/login-user/${payload.googleId}`
+      const { data, status } = await this.instance.post(
+        `/users/google/login-user`,
+        {
+          google_id: payload.googleId
+        }
       )
 
       if (status !== 200) {

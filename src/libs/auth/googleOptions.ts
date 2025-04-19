@@ -11,7 +11,7 @@ export const googleOptions = {
       response_type: 'code'
     }
   },
-  async profile(profile) {
+  async profile(profile, account) {
     const user = await getUserSession()
 
     const { sub: googleId, email, picture, given_name, family_name } = profile
@@ -25,7 +25,8 @@ export const googleOptions = {
         if (data && !error) {
           return {
             ...data.user,
-            token: data.token
+            token: data.token,
+            refreshToken: account.refresh_token
           }
         }
 
@@ -49,10 +50,13 @@ export const googleOptions = {
           if (loginData && !loginError) {
             return {
               ...loginData.user,
-              token: loginData.token
+              token: loginData.token,
+              refreshToken: account.refresh_token
             }
           }
         }
+
+        return null
       } catch (error) {
         console.error({
           googleOptionsErrorMessage: error.message
@@ -60,9 +64,6 @@ export const googleOptions = {
       }
     }
 
-    return {
-      id: user.id || googleId,
-      ...user
-    }
+    return null
   }
 }

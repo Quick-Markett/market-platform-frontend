@@ -3,7 +3,7 @@ import type { AuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 
-import type { ExtendedUser } from '@/types/@common/global'
+import type { User } from '@/types/models/user'
 import { refreshGoogleAccessToken } from '@/utils/auth/refreshGoogleAccessToken'
 
 import { credentialsOptions } from './credentialsOptions'
@@ -15,66 +15,36 @@ export const authOptions: AuthOptions = {
     GoogleProvider(googleOptions)
   ],
   callbacks: {
-    jwt: async ({ token, user, account }) => {
-      if (user && account) {
-        const formattedUser = token.user as ExtendedUser
+    jwt: async data => {
+      const { user, token, trigger, session } = data
 
-        if (token.provider === 'google') {
-          const expiresAt = Number(token.expires_at)
-          if (!isNaN(expiresAt)) {
-            formattedUser.accessToken = token.access_token as string
-            formattedUser.refreshToken = token.refresh_token as string
-            formattedUser.accessTokenExpires = expiresAt * 1000
-            formattedUser.provider = 'google'
-          }
-        } else if (token.provider === 'credentials') {
-          formattedUser.accessToken = token.token as string
-          formattedUser.accessTokenExpires = Date.now() + 24 * 60 * 60 * 1000
-          formattedUser.provider = 'credentials'
-        }
+      let userData: User
 
-        return {
-          ...token,
-          user: token
+      if (user) {
+        userData = user as unknown as User
+      } else if (token.userData) {
+        userData = token.userData as User
+      } else {
+        userData = {} as User
+      }
+      userData = await refreshGoogleAccessToken(userData)
+
+      if (trigger === 'update' && session) {
+        userData = {
+          ...userData,
+          ...session,
+          error: null
         }
       }
 
-      const updatedUser = token as unknown as ExtendedUser
-
-      if (updatedUser?.provider === 'google') {
-        if (Date.now() < (updatedUser.accessTokenExpires ?? 0)) {
-          return {
-            ...token,
-            user: token
-          }
-        }
-
-        return await refreshGoogleAccessToken(token.user)
-      }
-
-      if (updatedUser?.provider === 'credentials') {
-        if (Date.now() < (updatedUser.accessTokenExpires ?? 0)) {
-          return {
-            ...token,
-            user: token
-          }
-        }
-
-        return {
-          ...token,
-          error: 'TokenExpired'
-        }
-      }
-
+      token.userData = userData
       return token
     },
     session: async props => {
-      const { session, token } = props
-      const user = token.user as ExtendedUser
+      const { session, token: jwt } = props
 
-      session.user = user
-      session.token = (token.user as ExtendedUser)?.accessToken
-      session.error = token.error as string | undefined
+      const { userData } = jwt
+      session.user = userData
 
       return Promise.resolve(session)
     },
@@ -88,8 +58,6 @@ export const authOptions: AuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: 'jwt',
-    maxAge: 24 * 60 * 60,
-    updateAge: 24 * 60 * 60
+    strategy: 'jwt'
   }
 }

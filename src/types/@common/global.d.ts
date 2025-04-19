@@ -1,31 +1,13 @@
+import type { User as UserModel } from '@/types/models/user'
+
 import type { User as UserInterface } from './authentication'
 
 declare module 'next-auth' {
   interface Session extends DefaultSession {
-    error?: string
-    token?: string
-    user: ExtendedUser
-  }
-
-  interface JWT {
-    error?: string
-    user?: ExtendedUser
+    user: Partial<UserModel>
   }
 
   interface User extends UserInterface {
     id: number
-    token?: string
   }
-}
-
-interface ExtendedUser {
-  accessToken?: string
-  accessTokenExpires?: number
-  email: string
-  id: string
-  image?: string
-  name: string
-  provider?: string
-  refreshToken?: string
-  token?: string
 }

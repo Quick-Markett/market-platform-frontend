@@ -6,6 +6,7 @@ export interface User {
   created_at: string
   deleted_at: string
   email: string
+  error?: string
   google_id?: string
   id: number
   is_active: string
