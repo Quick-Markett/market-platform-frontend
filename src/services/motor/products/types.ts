@@ -32,7 +32,17 @@ export interface GetMarketProductsPayload {
   slug: string
 }
 
-export interface UpdateProductByIdPayload extends GetProductByIdPayload {
+export interface UpdateProductByIdPayload {
+  payload: Pick<
+    Product,
+    | 'id'
+    | 'product_description'
+    | 'product_image'
+    | 'product_name'
+    | 'slug'
+    | 'stock'
+    | 'unit_price'
+  >
   token: string
 }
 

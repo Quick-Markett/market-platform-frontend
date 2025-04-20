@@ -1,7 +1,7 @@
 'use client'
 
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -10,19 +10,17 @@ import { Button } from '@/components/toolkit/Button'
 import { InputField } from '@/components/toolkit/Fields/InputField'
 import { Modal } from '@/components/toolkit/Modal'
 import { CATEGORY_DEFAULT_FIELDS } from '@/constants/forms/category-default-fields'
-import { useAdminContext } from '@/contexts/AdminProvider'
 import { useGetAllCategories } from '@/hooks/swr/useGetAllCategories'
 import { useEventListener } from '@/hooks/useEventListener'
 import { useUserSession } from '@/hooks/useUserSession'
 import type { Category } from '@/types/models/category'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { createCategorySchema } from './schema'
-import type { CreateCategoryFormData, CreateCategoryFormInputs } from './types'
+import { editCategorySchema } from './schema'
+import type { EditCategoryFormData, EditCategoryFormInputs } from './types'
 
 export const EditCategoryModal: React.FC = () => {
   const { user } = useUserSession()
-  const { marketData } = useAdminContext()
   const { mutate } = useGetAllCategories({ payload: user.token })
 
   const [categoryData, setCategoryData] = useState<Category>(
@@ -30,8 +28,8 @@ export const EditCategoryModal: React.FC = () => {
   )
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
-  const formMethods = useForm<CreateCategoryFormInputs>({
-    resolver: zodResolver(createCategorySchema()),
+  const formMethods = useForm<EditCategoryFormInputs>({
+    resolver: zodResolver(editCategorySchema()),
     defaultValues: {
       description: categoryData?.description || '',
       name: categoryData?.name || ''
@@ -45,30 +43,27 @@ export const EditCategoryModal: React.FC = () => {
     formState: { isValidating, isSubmitting }
   } = formMethods
 
-  const onSubmit: SubmitHandler<CreateCategoryFormData> = async ({
+  const onSubmit: SubmitHandler<EditCategoryFormData> = async ({
     description,
     name
   }) => {
     try {
-      const { status } = await axios.post('/api/categories/update-category', {
+      const { status } = await axios.put('/api/categories/update-category', {
         token: user.token,
         payload: {
           description,
           name,
-          id: marketData.id
+          id: categoryData.id
         }
       })
 
-      setValue('description', '')
-      setValue('name', '')
-
-      if (status !== 201) {
-        toast.error('Ops.. houve um erro ao criar a categoria!')
+      if (status !== 200) {
+        toast.error('Ops.. houve um erro ao editar a categoria!')
         return
       }
 
       await mutate().then(() => {
-        toast.success('Categoria criada com sucesso!')
+        toast.success('Categoria editada com sucesso!')
         setIsModalOpen(false)
       })
     } catch (submitCreateMarketFormErr) {
@@ -91,12 +86,19 @@ export const EditCategoryModal: React.FC = () => {
     }
   })
 
+  useEffect(() => {
+    if (categoryData) {
+      setValue('name', categoryData.name)
+      setValue('description', categoryData.description)
+    }
+  }, [categoryData, setValue])
+
   return (
     <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 rounded-md bg-white px-8 py-16 pb-12">
         <article className="flex w-full flex-col gap-2">
           <h2 className="text-left text-2xl font-semibold lg:text-3xl">
-            Criar Categoria
+            Editar Categoria
           </h2>
           <p className="text-left text-sm text-neutral-500 lg:text-base">
             Crie categorias para organizar as prateleiras de seu mercado virtual
@@ -134,7 +136,7 @@ export const EditCategoryModal: React.FC = () => {
               type="submit"
               variant="primary"
             >
-              Criar Categoria
+              Editar Categoria
             </Button>
           </section>
         </form>

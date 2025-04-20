@@ -116,7 +116,8 @@ export class Categories {
   }: UpdateCategoryPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.put(
-        `/categories/${payload.id.toString()}`,
+        `/categories/${payload.id}`,
+        payload,
         {
           headers: {
             Authorization: `Bearer ${token}`

@@ -10,7 +10,7 @@ export const AvailableCategories: React.FC<AvailableCategoriesProps> = ({
   categories
 }) => {
   return (
-    <div className="3xl:grid-cols-6 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+    <div className="3xl:grid-cols-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8 2xl:grid-cols-5">
       {categories.map((category, index: number) => (
         <Button
           className="flex w-full items-center gap-3 rounded-md border border-l border-neutral-200 bg-white px-5 py-3.5 transition-all duration-300 hover:bg-[#fdfdfd]"

@@ -1,9 +1,9 @@
 import type { DefaultFormFields } from '@/constants/forms/default-forms-fields'
 
-export interface CreateCategoryFormInputs
+export interface EditCategoryFormInputs
   extends Pick<DefaultFormFields, 'name' | 'description'> {}
 
-export interface CreateCategoryFormData {
+export interface EditCategoryFormData {
   description: string
   name: string
 }

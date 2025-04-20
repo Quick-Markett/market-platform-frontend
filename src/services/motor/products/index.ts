@@ -103,11 +103,11 @@ export class Products {
 
   updateProduct = async ({
     token,
-    productId
+    payload
   }: UpdateProductByIdPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.put(
-        `/products/${productId.toString()}`,
+        `/products/${payload.id.toString()}`,
         {
           headers: {
             Authorization: `Bearer ${token}`
