@@ -21,23 +21,27 @@ export const RemoveProductModal: React.FC = () => {
   const [productData, setProductData] = useState<Product>(
     DEFAULT_PRODUCT_FIELDS
   )
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const handleRemoveProduct = async () => {
     try {
-      const { status } = await axios.post('/api/products/delete-product', {
-        token: user.token,
-        product_id: productData?.id
-      })
+      setIsLoading(true)
+
+      const { status } = await axios.delete(
+        `/api/products/delete-product?token=${user.token}&product_id=${productData.id}`
+      )
 
       if (status !== 200) {
         toast.error('Ops.. houve um erro ao remover o produto!')
         return
       }
 
+      setIsLoading(false)
+
       await mutate().then(() => {
         toast.success('Produto removido com sucesso!')
-        setProductData(null)
+        setProductData(DEFAULT_PRODUCT_FIELDS)
         setIsModalOpen(false)
       })
     } catch (removeProductErr) {
@@ -78,6 +82,7 @@ export const RemoveProductModal: React.FC = () => {
         </article>
         <Button
           className="min-w-full"
+          isLoading={isLoading}
           onClick={() => handleRemoveProduct()}
           variant="primary"
         >

@@ -29,7 +29,7 @@ export const EditMarket: React.FC = () => {
   const [isUploadLoading, setIsUploadLoading] = useState<boolean>(false)
   const [logo, setLogo] = useState<string>(marketData.logo_url)
 
-  const { user, token } = useUserSession()
+  const { user } = useUserSession()
 
   const formMethods = useForm<RegisterMarketFormInputs>({
     resolver: zodResolver(updateMarketSchema()),
@@ -100,7 +100,7 @@ export const EditMarket: React.FC = () => {
   }) => {
     try {
       const { status } = await axios.put('/api/markets/update-market', {
-        token,
+        token: user.token,
         payload: {
           id: marketData.id,
           owner_id: user.id,

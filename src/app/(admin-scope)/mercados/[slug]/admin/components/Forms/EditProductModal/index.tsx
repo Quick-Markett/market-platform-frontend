@@ -42,7 +42,7 @@ export const EditProductModal: React.FC = () => {
   const [isUploadLoading, setIsUploadLoading] = useState<boolean>(false)
 
   const { allCategories, isLoading } = useGetAllCategories({
-    payload: user.token
+    payload: { slug: marketData.slug }
   })
 
   const hasCategories = !isLoading && allCategories?.length > 0

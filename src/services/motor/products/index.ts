@@ -84,7 +84,6 @@ export class Products {
           Authorization: `Bearer ${token}`
         }
       })
-      console.log(status)
 
       if (status !== 201) {
         throw new Error(data.message)

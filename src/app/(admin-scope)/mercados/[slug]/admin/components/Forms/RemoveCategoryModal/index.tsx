@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import { Button } from '@/components/toolkit/Button'
 import { Modal } from '@/components/toolkit/Modal'
 import { CATEGORY_DEFAULT_FIELDS } from '@/constants/forms/category-default-fields'
+import { useAdminContext } from '@/contexts/AdminProvider'
 import { useGetAllCategories } from '@/hooks/swr/useGetAllCategories'
 import { useEventListener } from '@/hooks/useEventListener'
 import { useUserSession } from '@/hooks/useUserSession'
@@ -14,19 +15,22 @@ import type { Category } from '@/types/models/category'
 
 export const RemoveCategoryModal: React.FC = () => {
   const { user } = useUserSession()
-  const { mutate } = useGetAllCategories({ payload: user.token })
+  const { marketData } = useAdminContext()
+  const { mutate } = useGetAllCategories({ payload: { slug: marketData.slug } })
 
   const [categoryData, setCategoryData] = useState<Category>(
     CATEGORY_DEFAULT_FIELDS
   )
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const handleRemoveCategory = async () => {
     try {
-      const { status } = await axios.post('/api/categories/delete-category', {
-        token: user.token,
-        category_id: categoryData.id
-      })
+      setIsLoading(true)
+
+      const { status } = await axios.delete(
+        `/api/categories/delete-category?token=${user.token}&category_id=${categoryData.id}`
+      )
 
       if (status !== 200) {
         toast.error('Ops.. houve um erro ao remover a categoria!')
@@ -35,11 +39,13 @@ export const RemoveCategoryModal: React.FC = () => {
 
       await mutate().then(() => {
         toast.success('Categoria removida com sucesso!')
-        setCategoryData(null)
+        setCategoryData(CATEGORY_DEFAULT_FIELDS)
         setIsModalOpen(false)
       })
     } catch (removeCategoryErr) {
       console.error(removeCategoryErr)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -76,6 +82,7 @@ export const RemoveCategoryModal: React.FC = () => {
         </article>
         <Button
           className="min-w-full"
+          isLoading={isLoading}
           onClick={() => handleRemoveCategory()}
           variant="primary"
         >

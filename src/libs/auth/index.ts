@@ -35,7 +35,7 @@ export const authOptions: AuthOptions = {
 
       if (userData?.google_id) {
         const response = await refreshGoogleAccessToken(userData)
-        userData.token = response
+        userData = response
       }
 
       if (trigger === 'update' && session) {

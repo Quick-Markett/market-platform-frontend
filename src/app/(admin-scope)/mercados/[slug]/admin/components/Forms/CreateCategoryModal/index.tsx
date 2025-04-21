@@ -22,7 +22,7 @@ import type { CreateCategoryFormData, CreateCategoryFormInputs } from './types'
 export const CreateCategoryModal: React.FC = () => {
   const { user } = useUserSession()
   const { marketData } = useAdminContext()
-  const { mutate } = useGetAllCategories({ payload: user.token })
+  const { mutate } = useGetAllCategories({ payload: { slug: marketData.slug } })
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 

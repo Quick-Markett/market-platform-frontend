@@ -5,7 +5,8 @@ import { instanceMotor } from '@/instances/instanceMotor'
 
 export const DELETE = async (req: NextRequest) => {
   try {
-    const { category_id, token } = await req.json()
+    const token = req.nextUrl.searchParams.get('token')
+    const category_id = parseInt(req.nextUrl.searchParams.get('category_id'))
 
     await instanceMotor.categories.deleteCategory({ token, category_id })
 

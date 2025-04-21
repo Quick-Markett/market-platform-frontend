@@ -10,6 +10,7 @@ import { Button } from '@/components/toolkit/Button'
 import { InputField } from '@/components/toolkit/Fields/InputField'
 import { Modal } from '@/components/toolkit/Modal'
 import { CATEGORY_DEFAULT_FIELDS } from '@/constants/forms/category-default-fields'
+import { useAdminContext } from '@/contexts/AdminProvider'
 import { useGetAllCategories } from '@/hooks/swr/useGetAllCategories'
 import { useEventListener } from '@/hooks/useEventListener'
 import { useUserSession } from '@/hooks/useUserSession'
@@ -21,7 +22,8 @@ import type { EditCategoryFormData, EditCategoryFormInputs } from './types'
 
 export const EditCategoryModal: React.FC = () => {
   const { user } = useUserSession()
-  const { mutate } = useGetAllCategories({ payload: user.token })
+  const { marketData } = useAdminContext()
+  const { mutate } = useGetAllCategories({ payload: { slug: marketData.slug } })
 
   const [categoryData, setCategoryData] = useState<Category>(
     CATEGORY_DEFAULT_FIELDS
