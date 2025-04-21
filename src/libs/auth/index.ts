@@ -3,8 +3,8 @@ import type { AuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 
-import { auth } from '@/instances/instanceAuth'
 import type { User } from '@/types/models/user'
+import { refreshGoogleAccessToken } from '@/utils/auth/refreshGoogleAccessToken'
 
 import { credentialsOptions } from './credentialsOptions'
 import { googleOptions } from './googleOptions'
@@ -28,11 +28,15 @@ export const authOptions: AuthOptions = {
         userData = {} as User
       }
 
-      const { data: updatedToken } = await auth.jwt.validateAndRefreshToken({
-        token: userData.token
-      })
+      // const { data: updatedToken } = await auth.jwt.validateAndRefreshToken({
+      //   token: userData.token,
+      //   refresh_token: userData.refreshToken
+      // })
 
-      userData.token = updatedToken.token
+      if (userData?.google_id) {
+        const response = await refreshGoogleAccessToken(userData)
+        userData.token = response
+      }
 
       if (trigger === 'update' && session) {
         userData = {

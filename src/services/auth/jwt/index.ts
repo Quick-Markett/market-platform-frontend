@@ -1,8 +1,9 @@
 import type { AxiosInstance } from 'axios'
 
-import type { ServiceRequestResponse } from '@/types/services/serviceRequestResponse'
+import { parseJwtToken } from '@/utils/helpers/parseJwtToken'
 
 import type {
+  TokenServiceRequestResponse,
   ValidateAndRefreshTokenData,
   ValidateAndRefreshTokenDataResponse
 } from './types'
@@ -15,26 +16,52 @@ export class Jwt {
   }
 
   validateAndRefreshToken = async ({
-    token
+    token,
+    refresh_token
   }: ValidateAndRefreshTokenData): Promise<
-    ServiceRequestResponse<ValidateAndRefreshTokenDataResponse>
+    TokenServiceRequestResponse<ValidateAndRefreshTokenDataResponse>
   > => {
     try {
-      const { data, status } = await this.instance.post(`/auth/refresh-token`, {
-        token
-      })
+      const decodedToken = parseJwtToken({ token })
 
-      if (status !== 200) {
-        throw new Error(data.message)
+      if (!decodedToken?.exp) {
+        return {
+          status: 200
+        }
       }
 
-      return data
+      const now = Math.floor(Date.now() / 1000)
+      const timer = 60 * 5
+
+      if (decodedToken.exp - now < timer) {
+        const { data, status } = await this.instance.post(
+          `/auth/refresh-token`,
+          {
+            token,
+            refresh_token
+          }
+        )
+
+        if (status !== 200) {
+          throw new Error(data.message)
+        }
+
+        return {
+          data,
+          status
+        }
+      }
+
+      return {
+        status: 200
+      }
     } catch (validateAndRefreshJwtTokenErr) {
       console.error({
         validateAndRefreshJwtTokenErr: validateAndRefreshJwtTokenErr.message
       })
 
       return {
+        status: 401,
         error: validateAndRefreshJwtTokenErr.message
       }
     }
