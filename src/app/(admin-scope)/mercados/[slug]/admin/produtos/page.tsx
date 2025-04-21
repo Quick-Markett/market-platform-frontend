@@ -5,6 +5,9 @@ import type { DynamicMarketPageProps } from '@/app/(user-scope)/mercados/[slug]/
 import { instanceMotor } from '@/instances/instanceMotor'
 import { getMetaData } from '@/utils/seo/getMetaData'
 
+import { CreateProductModal } from '../components/Forms/CreateProductModal'
+import { EditProductModal } from '../components/Forms/EditProductModal'
+import { RemoveProductModal } from '../components/Forms/RemoveProductModal'
 import { EditProducts } from './components/EditProducts'
 
 export async function generateMetadata({ params }) {
@@ -29,7 +32,14 @@ export async function generateMetadata({ params }) {
 const Page: NextPage = async ({ params }: DynamicMarketPageProps) => {
   const { slug } = await params
 
-  return <EditProducts slug={slug} />
+  return (
+    <>
+      <EditProducts slug={slug} />
+      <CreateProductModal />
+      <EditProductModal />
+      <RemoveProductModal />
+    </>
+  )
 }
 
 export default Page

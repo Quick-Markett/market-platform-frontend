@@ -1,12 +1,12 @@
 import type { Category } from '@/types/models/category'
 
 export interface GetCategoryByIdPayload {
-  categoryId: number
+  category_id: number
   token: string
 }
 
 export interface GetMarketCategoriesPayload {
-  token: string
+  slug: string
 }
 
 export interface CreateCategoryPayload {

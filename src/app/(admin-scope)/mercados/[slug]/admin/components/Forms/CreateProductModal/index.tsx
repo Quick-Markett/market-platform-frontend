@@ -12,6 +12,7 @@ import { MediaIcon } from '@/app/(user-scope)/mercados/cadastre-seu-mercado/comp
 import { UploadButton } from '@/components/common/UploadButton'
 import { Button } from '@/components/toolkit/Button'
 import { InputField } from '@/components/toolkit/Fields/InputField'
+import { LabelField } from '@/components/toolkit/Fields/LabelField'
 import { SelectField } from '@/components/toolkit/Fields/SelectField'
 import { Modal } from '@/components/toolkit/Modal'
 import { useAdminContext } from '@/contexts/AdminProvider'
@@ -57,7 +58,8 @@ export const CreateProductModal: React.FC = () => {
     description,
     name,
     quantity,
-    price
+    price,
+    category_id
   }) => {
     try {
       const slug = convertToSlug({ text: name })
@@ -69,6 +71,7 @@ export const CreateProductModal: React.FC = () => {
           product_name: name,
           product_description: description,
           slug,
+          category_id,
           stock: quantity,
           product_image: productImage,
           unit_price: price
@@ -133,7 +136,7 @@ export const CreateProductModal: React.FC = () => {
         </article>
         <form id="register-market" onSubmit={handleSubmit(onSubmit)}>
           <section className="flex w-full flex-col gap-1">
-            <div className="flex w-full flex-col gap-8 lg:flex-row lg:justify-between">
+            <div className="mb-2 flex w-full flex-col gap-8 lg:flex-row lg:justify-between">
               <div className="w-full max-w-[200px]">
                 {productImage ? (
                   <div className="flex h-full max-h-[258px] w-full flex-col gap-4">
@@ -191,7 +194,7 @@ export const CreateProductModal: React.FC = () => {
               options={
                 hasCategories
                   ? allCategories.map(category => ({
-                      label: `${category.name} - ${category.id}`,
+                      label: `${category.name}`,
                       value: category.id
                     }))
                   : []
@@ -202,29 +205,40 @@ export const CreateProductModal: React.FC = () => {
               variant="secondary"
               {...register('category_id')}
             />
-            <Controller
-              render={({ field: { onChange, value } }) => (
-                <NumericFormat
-                  onValueChange={values => {
-                    const { floatValue } = values
-                    onChange(floatValue || 0)
-                  }}
-                  allowNegative={false}
-                  className="rounded-md border px-3 py-2 text-sm text-neutral-700 shadow-sm outline-none ring-1 ring-transparent transition-all duration-300 focus:ring-neutral-700"
-                  decimalScale={2}
-                  decimalSeparator=","
-                  defaultValue={0}
-                  id="price"
-                  name="price"
-                  prefix="R$ "
-                  thousandSeparator="."
-                  value={value}
-                  fixedDecimalScale
-                />
-              )}
-              control={control}
-              name="price"
-            />
+            <fieldset
+              className="mb-2 flex flex-col gap-1"
+              data-cid="input-field"
+            >
+              <LabelField
+                id="price"
+                label="Preço Unitário ou por Kg"
+                variant="secondary"
+              />
+              <Controller
+                render={({ field: { onChange, value } }) => (
+                  <NumericFormat
+                    onValueChange={values => {
+                      const { floatValue } = values
+                      onChange(floatValue || 0)
+                    }}
+                    allowNegative={false}
+                    className="rounded-md border px-3 py-2 text-sm text-neutral-700 shadow-sm outline-none ring-1 ring-transparent transition-all duration-300 focus:ring-neutral-700"
+                    decimalScale={2}
+                    decimalSeparator=","
+                    defaultValue={0}
+                    id="price"
+                    name="price"
+                    prefix="R$ "
+                    thousandSeparator="."
+                    value={value}
+                    fixedDecimalScale
+                  />
+                )}
+                control={control}
+                name="price"
+              />
+            </fieldset>
+
             <InputField
               defaultValue={0}
               id="quantity"

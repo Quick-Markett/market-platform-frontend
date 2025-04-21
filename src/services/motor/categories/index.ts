@@ -20,11 +20,11 @@ export class Categories {
 
   getCategoryById = async ({
     token,
-    categoryId
+    category_id
   }: GetCategoryByIdPayload): Promise<ServiceRequestResponse<Category>> => {
     try {
       const { data, status } = await this.instance.get(
-        `/categories/${categoryId.toString()}`,
+        `/categories/${category_id.toString()}`,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -49,18 +49,13 @@ export class Categories {
   }
 
   getMarketCategories = async ({
-    token
+    slug
   }: GetMarketCategoriesPayload): Promise<
     ServiceRequestResponse<Category[]>
   > => {
     try {
       const { data, status } = await this.instance.get(
-        `/categories/get-market-categories`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        `/categories/get-market-categories/${slug.toString()}`
       )
 
       if (status !== 200) {
@@ -141,11 +136,11 @@ export class Categories {
 
   deleteCategory = async ({
     token,
-    categoryId
+    category_id
   }: DeleteCategoryPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.delete(
-        `/categories/${categoryId.toString()}`,
+        `/categories/${category_id.toString()}`,
         {
           headers: {
             Authorization: `Bearer ${token}`

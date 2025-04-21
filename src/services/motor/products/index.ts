@@ -20,11 +20,11 @@ export class Products {
   }
 
   getProductById = async ({
-    productId
+    product_id
   }: GetProductByIdPayload): Promise<ServiceRequestResponse<Product>> => {
     try {
       const { data, status } = await this.instance.get(
-        `/products/${productId.toString()}`
+        `/products/${product_id.toString()}`
       )
 
       if (status !== 200) {
@@ -84,8 +84,9 @@ export class Products {
           Authorization: `Bearer ${token}`
         }
       })
+      console.log(status)
 
-      if (status !== 200) {
+      if (status !== 201) {
         throw new Error(data.message)
       }
 
@@ -131,11 +132,11 @@ export class Products {
 
   deleteProduct = async ({
     token,
-    productId
+    product_id
   }: DeleteProductByIdPayload): Promise<ServiceRequestResponse<void>> => {
     try {
       const { data, status } = await this.instance.delete(
-        `/products/${productId.toString()}`,
+        `/products/${product_id.toString()}`,
         {
           headers: {
             Authorization: `Bearer ${token}`

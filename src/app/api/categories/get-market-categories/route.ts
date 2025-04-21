@@ -4,12 +4,12 @@ import { NextResponse } from 'next/server'
 import { instanceMotor } from '@/instances/instanceMotor'
 
 export const GET = async (req: NextRequest) => {
-  const token = req.nextUrl.searchParams.get('token')
+  const slug = req.nextUrl.searchParams.get('slug')
 
   try {
     const { data: categories } =
       await instanceMotor.categories.getMarketCategories({
-        token
+        slug
       })
 
     return NextResponse.json(categories)

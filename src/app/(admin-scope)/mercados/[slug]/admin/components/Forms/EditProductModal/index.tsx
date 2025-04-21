@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
 import { Controller, useForm } from 'react-hook-form'
 import { NumericFormat } from 'react-number-format'
@@ -12,13 +12,16 @@ import { MediaIcon } from '@/app/(user-scope)/mercados/cadastre-seu-mercado/comp
 import { UploadButton } from '@/components/common/UploadButton'
 import { Button } from '@/components/toolkit/Button'
 import { InputField } from '@/components/toolkit/Fields/InputField'
+import { LabelField } from '@/components/toolkit/Fields/LabelField'
 import { SelectField } from '@/components/toolkit/Fields/SelectField'
 import { Modal } from '@/components/toolkit/Modal'
+import { DEFAULT_PRODUCT_FIELDS } from '@/constants/forms/default-product-fields'
 import { useAdminContext } from '@/contexts/AdminProvider'
 import { useGetAllCategories } from '@/hooks/swr/useGetAllCategories'
 import { useGetAllProducts } from '@/hooks/swr/useGetAllProducts'
 import { useEventListener } from '@/hooks/useEventListener'
 import { useUserSession } from '@/hooks/useUserSession'
+import type { Product } from '@/types/models/product'
 import { convertToSlug } from '@/utils/helpers/convertToSlug'
 import { uploadImage } from '@/utils/helpers/uploadImage'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -31,8 +34,11 @@ export const EditProductModal: React.FC = () => {
   const { marketData } = useAdminContext()
   const { mutate } = useGetAllProducts({ slug: marketData.slug })
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [productData, setProductData] = useState<Product>(
+    DEFAULT_PRODUCT_FIELDS
+  )
   const [productImage, setProductImage] = useState<string>('')
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [isUploadLoading, setIsUploadLoading] = useState<boolean>(false)
 
   const { allCategories, isLoading } = useGetAllCategories({
@@ -42,7 +48,14 @@ export const EditProductModal: React.FC = () => {
   const hasCategories = !isLoading && allCategories?.length > 0
 
   const formMethods = useForm<EditProductFormInputs>({
-    resolver: zodResolver(editProductSchema())
+    resolver: zodResolver(editProductSchema()),
+    defaultValues: {
+      category_id: productData.category_id,
+      description: productData.product_description,
+      name: productData.product_name,
+      price: productData.unit_price,
+      quantity: productData.stock
+    }
   })
 
   const {
@@ -57,15 +70,17 @@ export const EditProductModal: React.FC = () => {
     description,
     name,
     quantity,
-    price
+    price,
+    category_id
   }) => {
     try {
       const slug = convertToSlug({ text: name })
 
-      const { status } = await axios.post('/api/products/create-product', {
+      const { status } = await axios.post('/api/products/edit-product', {
         token: user.token,
         payload: {
-          market_id: marketData.id,
+          product_id: productData.id,
+          category_id,
           product_name: name,
           product_description: description,
           slug,
@@ -75,12 +90,7 @@ export const EditProductModal: React.FC = () => {
         }
       })
 
-      setValue('description', '')
-      setValue('name', '')
-      setValue('price', 1)
-      setValue('quantity', 0)
-
-      if (status !== 201) {
+      if (status !== 200) {
         toast.error('Ops.. houve um erro ao editar o produto!')
         return
       }
@@ -106,18 +116,31 @@ export const EditProductModal: React.FC = () => {
     }
   }
 
-  useEventListener('create-product', ({ action }) => {
+  useEventListener('edit-product', ({ action, data }) => {
     switch (action) {
       case 'open': {
         setIsModalOpen(true)
+        setProductData(data)
         break
       }
       case 'close': {
         setIsModalOpen(false)
+        setProductData(null)
         break
       }
     }
   })
+
+  useEffect(() => {
+    if (productData) {
+      setValue('name', productData.product_name)
+      setValue('description', productData.product_description)
+      setValue('category_id', productData.category_id ?? null)
+      setValue('price', productData.unit_price)
+      setValue('quantity', productData.stock)
+      setProductImage(productData.product_image)
+    }
+  }, [productData, setValue])
 
   return (
     <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
@@ -133,7 +156,7 @@ export const EditProductModal: React.FC = () => {
         </article>
         <form id="register-market" onSubmit={handleSubmit(onSubmit)}>
           <section className="flex w-full flex-col gap-1">
-            <div className="flex w-full flex-col gap-8 lg:flex-row lg:justify-between">
+            <div className="mb-2 flex w-full flex-col gap-8 lg:flex-row lg:justify-between">
               <div className="w-full max-w-[200px]">
                 {productImage ? (
                   <div className="flex h-full max-h-[258px] w-full flex-col gap-4">
@@ -165,6 +188,7 @@ export const EditProductModal: React.FC = () => {
               </div>
               <div className="flex w-full flex-col gap-1">
                 <InputField
+                  defaultValue={productData.product_name}
                   id="name"
                   label="Nome do Produto"
                   maxLength={80}
@@ -176,6 +200,7 @@ export const EditProductModal: React.FC = () => {
                   variant="secondary"
                 />
                 <InputField
+                  defaultValue={productData.product_description}
                   id="description"
                   label="Descrição do Produto"
                   maxLength={1200}
@@ -191,42 +216,54 @@ export const EditProductModal: React.FC = () => {
               options={
                 hasCategories
                   ? allCategories.map(category => ({
-                      label: `${category.name} - ${category.id}`,
+                      label: `${category.name}`,
                       value: category.id
                     }))
                   : []
               }
+              defaultValue={productData.category_id}
               label="Categoria"
               name="city"
               placeholder="Categoria do Produto"
               variant="secondary"
               {...register('category_id')}
             />
-            <Controller
-              render={({ field: { onChange, value } }) => (
-                <NumericFormat
-                  onValueChange={values => {
-                    const { floatValue } = values
-                    onChange(floatValue || 0)
-                  }}
-                  allowNegative={false}
-                  className="rounded-md border px-3 py-2 text-sm text-neutral-700 shadow-sm outline-none ring-1 ring-transparent transition-all duration-300 focus:ring-neutral-700"
-                  decimalScale={2}
-                  decimalSeparator=","
-                  defaultValue={0}
-                  id="price"
-                  name="price"
-                  prefix="R$ "
-                  thousandSeparator="."
-                  value={value}
-                  fixedDecimalScale
-                />
-              )}
-              control={control}
-              name="price"
-            />
+            <fieldset
+              className="mb-2 flex flex-col gap-1"
+              data-cid="input-field"
+            >
+              <LabelField
+                id="price"
+                label="Preço Unitário ou por Kg"
+                variant="secondary"
+              />
+              <Controller
+                render={({ field: { onChange, value } }) => (
+                  <NumericFormat
+                    onValueChange={values => {
+                      const { floatValue } = values
+                      onChange(floatValue || 0)
+                    }}
+                    allowNegative={false}
+                    className="rounded-md border px-3 py-2 text-sm text-neutral-700 shadow-sm outline-none ring-1 ring-transparent transition-all duration-300 focus:ring-neutral-700"
+                    decimalScale={2}
+                    decimalSeparator=","
+                    defaultValue={productData.unit_price}
+                    id="price"
+                    name="price"
+                    prefix="R$ "
+                    thousandSeparator="."
+                    value={value}
+                    fixedDecimalScale
+                  />
+                )}
+                control={control}
+                name="price"
+              />
+            </fieldset>
+
             <InputField
-              defaultValue={0}
+              defaultValue={productData.stock}
               id="quantity"
               label="Quantidade em Estoque"
               max={9999}

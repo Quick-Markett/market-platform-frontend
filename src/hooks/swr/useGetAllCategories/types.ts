@@ -1,5 +1,5 @@
-import type { User } from '@/types/models/user'
+import type { Market } from '@/types/models/market'
 
 export interface useGetAllCategoriesData {
-  payload: Pick<User, 'token'>
+  payload: Pick<Market, 'slug'>
 }

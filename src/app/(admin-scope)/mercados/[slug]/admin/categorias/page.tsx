@@ -4,6 +4,9 @@ import { notFound } from 'next/navigation'
 import { instanceMotor } from '@/instances/instanceMotor'
 import { getMetaData } from '@/utils/seo/getMetaData'
 
+import { CreateCategoryModal } from '../components/Forms/CreateCategoryModal'
+import { EditCategoryModal } from '../components/Forms/EditCategoryModal'
+import { RemoveCategoryModal } from '../components/Forms/RemoveCategoryModal'
 import { EditCategories } from './components/EditCategories'
 
 export async function generateMetadata({ params }) {
@@ -26,7 +29,14 @@ export async function generateMetadata({ params }) {
 }
 
 const Page: NextPage = async () => {
-  return <EditCategories />
+  return (
+    <>
+      <EditCategories />
+      <CreateCategoryModal />
+      <EditCategoryModal />
+      <RemoveCategoryModal />
+    </>
+  )
 }
 
 export default Page

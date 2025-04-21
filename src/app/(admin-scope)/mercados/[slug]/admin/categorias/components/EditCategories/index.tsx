@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/toolkit/Button'
 import { Container } from '@/components/toolkit/Container'
+import { useAdminContext } from '@/contexts/AdminProvider'
 import { useGetAllCategories } from '@/hooks/swr/useGetAllCategories'
-import { useUserSession } from '@/hooks/useUserSession'
 import { handleOpenCreateCategoryModal } from '@/utils/customEvents/@handlers/categories/handleOpenCreateCategoryModal'
 
 import { AvailableCategories } from './AvailableCategories'
@@ -11,10 +11,10 @@ import { SkeletonAvailableCategories } from './AvailableCategories/SkeletonAvail
 import { NoResults } from './NoResults'
 
 export const EditCategories: React.FC = () => {
-  const { user } = useUserSession()
+  const { marketData } = useAdminContext()
 
   const { allCategories, isLoading } = useGetAllCategories({
-    payload: user.token
+    payload: { slug: marketData.slug }
   })
 
   const hasResults = !isLoading && allCategories?.length > 0

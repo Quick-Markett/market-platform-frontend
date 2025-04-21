@@ -3,7 +3,6 @@
 import type { SessionContextValue } from 'next-auth/react'
 import { useSession } from 'next-auth/react'
 
-import type { ExtendedUser } from '@/types/@common/global'
 import type { User } from '@/types/models/user'
 
 export const useUserSession = (): {
@@ -14,7 +13,7 @@ export const useUserSession = (): {
   const { data, update } = useSession() ?? {}
 
   return {
-    user: data?.user as ExtendedUser & User,
+    user: data?.user as User,
     update
   }
 }

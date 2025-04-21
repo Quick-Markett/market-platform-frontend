@@ -11,7 +11,7 @@ export interface ProductParamsFilters {
 }
 
 export interface GetProductByIdPayload {
-  productId: number
+  product_id: number
 }
 
 export interface CreateProductPayload {
@@ -24,6 +24,7 @@ export interface CreateProductPayload {
     | 'product_name'
     | 'stock'
     | 'unit_price'
+    | 'category_id'
   >
   token: string
 }
@@ -42,6 +43,7 @@ export interface UpdateProductByIdPayload {
     | 'slug'
     | 'stock'
     | 'unit_price'
+    | 'category_id'
   >
   token: string
 }

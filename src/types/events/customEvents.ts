@@ -22,4 +22,12 @@ export interface CustomEvents {
     action: 'open' | 'close'
     data?: Product
   }
+  'remove-category': {
+    action: 'open' | 'close'
+    data?: Category
+  }
+  'remove-product': {
+    action: 'open' | 'close'
+    data?: Product
+  }
 }
