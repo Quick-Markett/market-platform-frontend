@@ -9,6 +9,7 @@ import type {
   DeleteProductByIdPayload,
   GetMarketProductsPayload,
   GetProductByIdPayload,
+  MappedProduct,
   UpdateProductByIdPayload
 } from './types'
 
@@ -63,9 +64,9 @@ export class Products {
       }
 
       return data
-    } catch (getMarketProductsErr) {
+    } catch (getMarketMappedProductsErr) {
       console.error({
-        getMarketProductsErrMessage: getMarketProductsErr.message
+        getMarketMappedProductsErrMessage: getMarketMappedProductsErr.message
       })
 
       return {
@@ -153,6 +154,32 @@ export class Products {
 
       return {
         error: deleteProductErr.message
+      }
+    }
+  }
+
+  getMarketMappedProducts = async ({
+    slug
+  }: GetMarketProductsPayload): Promise<
+    ServiceRequestResponse<MappedProduct[]>
+  > => {
+    try {
+      const { data, status } = await this.instance.get(
+        `/products/get-mapped-products/${slug.toString()}`
+      )
+
+      if (status !== 200) {
+        throw new Error(data.message)
+      }
+
+      return data
+    } catch (getMarketMappedProductsErr) {
+      console.error({
+        getMarketMappedProductsErrMessage: getMarketMappedProductsErr.message
+      })
+
+      return {
+        data: []
       }
     }
   }

@@ -6,6 +6,7 @@ import { instanceMotor } from '@/instances/instanceMotor'
 import { getMetaData } from '@/utils/seo/getMetaData'
 
 import { Header } from './components/Header'
+import { MarketShelfs } from './components/MarketShelfs'
 import type { DynamicMarketPageProps } from './types'
 
 export async function generateMetadata({ params }: DynamicMarketPageProps) {
@@ -47,6 +48,7 @@ const Page: NextPage = async ({ params }: DynamicMarketPageProps) => {
       <WelcomeBar />
       <main>
         <Header market={market} />
+        <MarketShelfs slug={slug} />
       </main>
     </>
   )

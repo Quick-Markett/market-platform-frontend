@@ -51,3 +51,16 @@ export interface UpdateProductByIdPayload {
 export interface DeleteProductByIdPayload extends GetProductByIdPayload {
   token: string
 }
+
+export interface MappedProduct {
+  category: string
+  products: Pick<
+    Product,
+    | 'id'
+    | 'product_name'
+    | 'slug'
+    | 'unit_price'
+    | 'product_image'
+    | 'product_description'
+  >[]
+}
