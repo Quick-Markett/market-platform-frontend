@@ -1,5 +1,6 @@
 import Image from 'next/image'
 
+import { Breadcrumb } from '@/components/common/Breadcrumb'
 import { Container } from '@/components/toolkit/Container'
 import { getUserSession } from '@/utils/auth/getUserSession'
 
@@ -17,6 +18,7 @@ export const Header: React.FC<HeaderProps> = async ({ market }) => {
       data-cid="market-data"
       wrapperClassName="bg-white py-12 lg:py-20"
     >
+      <Breadcrumb items={[{ name: market.name, href: '#' }]} />
       <figure className="max-h-[220px] w-full rounded-sm">
         <Image
           alt={`${market.name} Background Image`}
@@ -30,14 +32,17 @@ export const Header: React.FC<HeaderProps> = async ({ market }) => {
         <div className="flex w-full items-center gap-4">
           <figure className="h-20 w-20 rounded-sm">
             <Image
+              src={
+                market.logo_url ||
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/The_Fresh_Market_logo.svg/1200px-The_Fresh_Market_logo.svg.png'
+              }
               alt="Market Logo"
               className="h-20 w-20 rounded-sm"
-              height={120}
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/The_Fresh_Market_logo.svg/1200px-The_Fresh_Market_logo.svg.png"
-              width={120}
+              height={680}
+              width={680}
             />
           </figure>
-          <article className="flex w-full flex-col gap-1">
+          <article className="flex w-auto flex-col gap-1">
             <h1 className="text-2xl font-semibold lg:text-3xl">
               {market.name}
             </h1>
